@@ -7,6 +7,9 @@ import android.os.PersistableBundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 
+import com.okawa.pedro.rentapp.RentApp;
+import com.okawa.pedro.rentapp.di.component.RentAppComponent;
+
 /**
  * Created by pokawa on 26/01/16.
  */
@@ -19,11 +22,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
+        setupComponent(((RentApp) getApplication()).getComponent());
         setupBinding();
         doOnCreated(savedInstanceState);
     }
 
     protected abstract @LayoutRes int layoutToInflate();
+
+    protected abstract void setupComponent(RentAppComponent component);
+
     protected abstract void doOnCreated(Bundle savedInstanceState);
 
     private void setupBinding() {
