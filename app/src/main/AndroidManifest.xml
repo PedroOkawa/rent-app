@@ -1,0 +1,24 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.okawa.pedro.rentapp">
+
+    <application android:allowBackup="true"
+        android:name=".RentApp"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="ba5c840c3dcb3f0734c1922eae67b9846f4e0ee6" />
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+</manifest>
