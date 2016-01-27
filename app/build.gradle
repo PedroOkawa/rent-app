@@ -54,9 +54,6 @@ dependencies {
     /* JUNIT */
     testCompile 'junit:junit:4.12'
 
-    /* APP COMPAT */
-    compile 'com.android.support:appcompat-v7:23.1.1'
-
     /* CRASHLYTICS */
     compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
         transitive = true;
@@ -78,4 +75,8 @@ dependencies {
     /* RXJAVA AND RXANDROID */
     compile 'io.reactivex:rxjava:1.0.16'
     compile 'io.reactivex:rxandroid:1.1.0'
+
+    /* SUPPORT */
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:recyclerview-v7:23.1.1'
 }

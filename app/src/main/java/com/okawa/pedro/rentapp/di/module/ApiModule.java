@@ -1,11 +1,10 @@
 package com.okawa.pedro.rentapp.di.module;
 
+import com.okawa.pedro.rentapp.RentApp;
 import com.okawa.pedro.rentapp.database.AdvertisementRepository;
 import com.okawa.pedro.rentapp.database.PaginationRepository;
 import com.okawa.pedro.rentapp.network.ApiInterface;
-import com.okawa.pedro.rentapp.util.ApiManager;
-
-import java.util.concurrent.TimeUnit;
+import com.okawa.pedro.rentapp.util.manager.ApiManager;
 
 import javax.inject.Singleton;
 
@@ -42,10 +41,11 @@ public class ApiModule {
 
     @Singleton
     @Provides
-    public ApiManager providesApiManager(ApiInterface apiInterface,
+    public ApiManager providesApiManager(RentApp rentApp,
+                                         ApiInterface apiInterface,
                                          AdvertisementRepository advertisementRepository,
                                          PaginationRepository paginationRepository) {
-        return new ApiManager(apiInterface, advertisementRepository, paginationRepository);
+        return new ApiManager(rentApp, apiInterface, advertisementRepository, paginationRepository);
     }
 
 }

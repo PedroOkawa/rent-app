@@ -7,12 +7,11 @@ import com.okawa.pedro.rentapp.di.module.ApiModule;
 import com.okawa.pedro.rentapp.di.module.DatabaseModule;
 import com.okawa.pedro.rentapp.di.module.RentAppModule;
 import com.okawa.pedro.rentapp.network.ApiInterface;
-import com.okawa.pedro.rentapp.util.ApiManager;
+import com.okawa.pedro.rentapp.util.manager.ApiManager;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
-import okhttp3.OkHttpClient;
 
 /**
  * Created by pokawa on 26/01/16.

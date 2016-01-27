@@ -37,7 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, layoutToInflate());
     }
 
-    private ViewDataBinding getBinding() {
+    protected ViewDataBinding getBinding() {
         if(binding == null) {
             throw new NullPointerException(BINDING_NULL_EXCEPTION);
         }

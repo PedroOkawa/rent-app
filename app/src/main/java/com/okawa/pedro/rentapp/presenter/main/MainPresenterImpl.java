@@ -1,7 +1,8 @@
 package com.okawa.pedro.rentapp.presenter.main;
 
+import com.okawa.pedro.rentapp.databinding.ActivityMainBinding;
 import com.okawa.pedro.rentapp.ui.main.MainView;
-import com.okawa.pedro.rentapp.util.ApiManager;
+import com.okawa.pedro.rentapp.util.manager.ApiManager;
 
 /**
  * Created by pokawa on 26/01/16.
@@ -17,7 +18,7 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public void setupView() {
+    public void setupView(ActivityMainBinding binding) {
         apiManager.requestAdvertisements();
     }
 }

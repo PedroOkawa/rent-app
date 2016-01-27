@@ -20,4 +20,8 @@ public class AdvertisementRepository {
         daoSession.getAdvertisementDao().insertOrReplaceInTx(advertisements);
     }
 
+    public long count() {
+        return daoSession.getAdvertisementDao().count();
+    }
+
 }

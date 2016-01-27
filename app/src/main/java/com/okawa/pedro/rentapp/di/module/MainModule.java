@@ -4,7 +4,7 @@ import com.okawa.pedro.rentapp.di.scope.Activity;
 import com.okawa.pedro.rentapp.presenter.main.MainPresenter;
 import com.okawa.pedro.rentapp.presenter.main.MainPresenterImpl;
 import com.okawa.pedro.rentapp.ui.main.MainView;
-import com.okawa.pedro.rentapp.util.ApiManager;
+import com.okawa.pedro.rentapp.util.manager.ApiManager;
 
 import dagger.Module;
 import dagger.Provides;

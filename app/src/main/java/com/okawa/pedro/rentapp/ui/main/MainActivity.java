@@ -3,6 +3,7 @@ package com.okawa.pedro.rentapp.ui.main;
 import android.os.Bundle;
 
 import com.okawa.pedro.rentapp.R;
+import com.okawa.pedro.rentapp.databinding.ActivityMainBinding;
 import com.okawa.pedro.rentapp.di.component.DaggerMainComponent;
 import com.okawa.pedro.rentapp.di.component.RentAppComponent;
 import com.okawa.pedro.rentapp.di.module.MainModule;
@@ -36,6 +37,6 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     protected void doOnCreated(Bundle savedInstanceState) {
-        mainPresenter.setupView();
+        mainPresenter.setupView((ActivityMainBinding) getBinding());
     }
 }
