@@ -7,6 +7,6 @@ import com.okawa.pedro.rentapp.databinding.ActivityMainBinding;
  */
 public interface MainPresenter {
 
-    void setupView(ActivityMainBinding binding);
+    void setupViews(ActivityMainBinding binding);
 
 }

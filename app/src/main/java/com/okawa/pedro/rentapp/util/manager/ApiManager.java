@@ -7,6 +7,7 @@ import com.okawa.pedro.rentapp.database.AdvertisementRepository;
 import com.okawa.pedro.rentapp.database.PaginationRepository;
 import com.okawa.pedro.rentapp.model.Response;
 import com.okawa.pedro.rentapp.network.ApiInterface;
+import com.okawa.pedro.rentapp.util.listener.OnApiServiceListener;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,7 +42,7 @@ public class ApiManager {
         this.paginationRepository = paginationRepository;
     }
 
-    public void requestAdvertisements() {
+    public void requestAdvertisements(final OnApiServiceListener listener) {
         if(callListAdvertisements()) {
             apiInterface
                     .listAdvertisements(defineQuery())
@@ -50,12 +51,12 @@ public class ApiManager {
                     .subscribe(new Observer<Response>() {
                         @Override
                         public void onCompleted() {
-
+                            listener.onSuccess();
                         }
 
                         @Override
                         public void onError(Throwable e) {
-
+                            listener.onError(e.getMessage());
                         }
 
                         @Override
