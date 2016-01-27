@@ -41,38 +41,36 @@ public class ApiManager {
 
     /* SEARCH CALL */
     public void requestAdvertisements(final OnApiServiceListener listener) {
-        if(advertisementRepository.canLoadNextPage()) {
-            apiInterface
-                    .search(defineAdvertisementsQuery())
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<Response>() {
-                        @Override
-                        public void onCompleted() {
-                            listener.onSuccess();
-                        }
+        apiInterface
+                .search(defineAdvertisementsQuery())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response>() {
+                    @Override
+                    public void onCompleted() {
+                        listener.onSuccess();
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            listener.onError(e.getMessage());
-                        }
+                    @Override
+                    public void onError(Throwable e) {
+                        listener.onError(e.getMessage());
+                    }
 
-                        @Override
-                        public void onNext(Response response) {
-                            Pagination pagination = response.getResult().getResults().getPagination();
-                            if(pagination.getCurrentPage() < pagination.getNumPages()) {
-                                pagination.setCurrentPage(pagination.getCurrentPage() + 1);
-                            }
-                            List<Advertisement> advertisements = response.getResult().getResults().getAdvertisements();
-
-                            advertisementRepository.updatePagination(pagination);
-                            advertisementRepository.insertOrReplaceInTx(advertisements);
+                    @Override
+                    public void onNext(Response response) {
+                        Pagination pagination = response.getResult().getResults().getPagination();
+                        if(pagination.getCurrentPage() < pagination.getNumPages()) {
+                            pagination.setCurrentPage(pagination.getCurrentPage() + 1);
                         }
-                    });
-        }
+                        List<Advertisement> advertisements = response.getResult().getResults().getAdvertisements();
+
+                        advertisementRepository.updatePagination(pagination);
+                        advertisementRepository.insertOrReplaceInTx(advertisements);
+                    }
+                });
     }
 
-    /* RETURNS PARAMETERS TO MAKE SEARCH */
+    /* RETURN PARAMETERS TO MAKE SEARCH */
     private String defineAdvertisementsQuery() {
         /* CHECK FOR PREVIOUS PAGINATION */
         long currentPage = advertisementRepository.getCurrentPage();

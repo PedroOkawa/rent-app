@@ -10,6 +10,11 @@ public abstract class OnRecyclerViewListener extends RecyclerView.OnScrollListen
     public static final int LIST_THRESHOLD = 10;
 
     private int previousTotal = 0;
+
+    private int visibleItemCount;
+    private int totalItemCount;
+    private int firstVisibleItem;
+
     private boolean loading = true;
     private GridLayoutManager gridLayoutManager;
 
@@ -24,9 +29,9 @@ public abstract class OnRecyclerViewListener extends RecyclerView.OnScrollListen
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
 
-        int visibleItemCount = recyclerView.getChildCount();
-        int totalItemCount = gridLayoutManager.getItemCount();
-        int firstVisibleItem = gridLayoutManager.findFirstVisibleItemPosition();
+        visibleItemCount = recyclerView.getChildCount();
+        totalItemCount = gridLayoutManager.getItemCount();
+        firstVisibleItem = gridLayoutManager.findFirstVisibleItemPosition();
 
         if (loading) {
             if (totalItemCount > previousTotal) {
@@ -39,5 +44,11 @@ public abstract class OnRecyclerViewListener extends RecyclerView.OnScrollListen
             onVisibleThreshold();
             loading = true;
         }
+    }
+
+    public void reset() {
+        visibleItemCount = 0;
+        totalItemCount = 0;
+        previousTotal = 0;
     }
 }

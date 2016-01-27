@@ -26,7 +26,7 @@ public class MainPresenterImpl implements MainPresenter, OnViewTouchListener {
 
     @Override
     public void initialize(Context context, ActivityMainBinding binding) {
-        /* STORES CONTEXT */
+        /* STORE CONTEXT */
         this.context = context;
 
         /* INITIALIZE VIEWS */

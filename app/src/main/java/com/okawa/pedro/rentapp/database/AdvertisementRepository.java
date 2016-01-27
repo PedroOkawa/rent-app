@@ -1,5 +1,7 @@
 package com.okawa.pedro.rentapp.database;
 
+import android.util.Log;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -67,5 +69,12 @@ public class AdvertisementRepository {
             return pagination.getCurrentPage();
         }
         return 1;
+    }
+
+    /* COMMON */
+
+    public void deleteAll() {
+        daoSession.getPaginationDao().deleteAll();
+        daoSession.getAdvertisementDao().deleteAll();
     }
 }

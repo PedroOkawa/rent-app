@@ -1,6 +1,7 @@
 package com.okawa.pedro.rentapp.presenter.search;
 
 import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 
 import com.okawa.pedro.rentapp.database.AdvertisementRepository;
@@ -26,10 +27,9 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
     private ApiManager apiManager;
     private AdvertisementRepository advertisementRepository;
 
-    private Context context;
-    private ActivitySearchBinding binding;
     private AdvertisementAdapter advertisementAdapter;
     private AutoGridLayoutManager autoGridLayoutManager;
+    private OnSearchListener onSearchListener;
 
     public SearchPresenterImpl(SearchView searchView,
                                ApiManager apiManager,
@@ -41,25 +41,27 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
 
     @Override
     public void initialize(Context context, ActivitySearchBinding binding) {
-        /* STORES CONTEXT */
-        this.context = context;
-
-        /* STORES BINDING */
-        this.binding = binding;
-
-        /* SHOWS PROGRESS BAR WHILE LOADING */
-        searchView.showProgressBar();
+        /* SHOW PROGRESS BAR */
+        binding.setLoading(true);
 
         /* INITIALIZE VIEWS */
         advertisementAdapter = new AdvertisementAdapter(context, new ArrayList<Advertisement>());
         autoGridLayoutManager = new AutoGridLayoutManager(context);
+        onSearchListener = new OnSearchListener(autoGridLayoutManager);
 
-        this.binding.rvActivitySearch.setAdapter(advertisementAdapter);
-        this.binding.rvActivitySearch.setLayoutManager(autoGridLayoutManager);
-        this.binding.rvActivitySearch.addOnScrollListener(new OnSearchListener(autoGridLayoutManager));
-
-        /* LOAD FIRST PAGE */
-        loadNextPage();
+        binding.rvActivitySearch.setAdapter(advertisementAdapter);
+        binding.rvActivitySearch.setLayoutManager(autoGridLayoutManager);
+        binding.rvActivitySearch.addOnScrollListener(onSearchListener);
+        binding.srlActivitySearch.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                /* RESET ADVERTISEMENTS LIST */
+                onSearchListener.reset();
+                advertisementAdapter.reset();
+                advertisementRepository.deleteAll();
+                loadNextPage();
+            }
+        });
     }
 
     @Override
@@ -67,37 +69,36 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
         autoGridLayoutManager.changeColumnsNumber(orientation);
     }
 
-    /* LOADS ADVERTISEMENTS SEARCH PAGE */
+    /* LOAD ADVERTISEMENTS SEARCH PAGE */
     private void loadNextPage() {
-        this.binding.srlActivitySearch.setRefreshing(true);
+        searchView.showRefresh();
+
         if(advertisementRepository.canLoadNextPage()) {
-            /* CALLS REST SERVICE */
             apiManager.requestAdvertisements(this);
         } else {
             loadFromDatabase();
+            searchView.hideRefresh();
         }
     }
 
     private void loadFromDatabase() {
+        /* LOAD DATA PAGED FROM DATABASE */
         List<Advertisement> advertisements =
                 advertisementRepository.selectAdvertisementsPaged(advertisementAdapter.getItemCount());
         advertisementAdapter.addDataSet(advertisements);
+        advertisementAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onSuccess() {
-        searchView.hideProgressBar();
-
-        this.binding.srlActivitySearch.setRefreshing(false);
-
         loadFromDatabase();
+        searchView.hideRefresh();
     }
 
     @Override
     public void onError(String message) {
-        searchView.hideProgressBar();
-
-        this.binding.srlActivitySearch.setRefreshing(false);
+        searchView.hideRefresh();
+        searchView.displayError(message);
     }
 
     /* ENDLESS RECYCLER VIEW LISTENER */

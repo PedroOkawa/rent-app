@@ -2,6 +2,7 @@ package com.okawa.pedro.rentapp.ui.search;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.okawa.pedro.rentapp.R;
 import com.okawa.pedro.rentapp.databinding.ActivitySearchBinding;
@@ -17,6 +18,8 @@ import javax.inject.Inject;
  * Created by pokawa on 27/01/16.
  */
 public class SearchActivity extends BaseActivity implements SearchView {
+
+    private ActivitySearchBinding binding;
 
     @Inject
     SearchPresenter searchPresenter;
@@ -38,17 +41,24 @@ public class SearchActivity extends BaseActivity implements SearchView {
 
     @Override
     protected void doOnCreated(Bundle savedInstanceState) {
-        searchPresenter.initialize(this, (ActivitySearchBinding) getBinding());
+        binding = (ActivitySearchBinding) getBinding();
+        searchPresenter.initialize(this, binding);
     }
 
     @Override
-    public void showProgressBar() {
-
+    public void showRefresh() {
+        binding.srlActivitySearch.setRefreshing(true);
     }
 
     @Override
-    public void hideProgressBar() {
+    public void hideRefresh() {
+        binding.srlActivitySearch.setRefreshing(false);
+        binding.setLoading(false);
+    }
 
+    @Override
+    public void displayError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

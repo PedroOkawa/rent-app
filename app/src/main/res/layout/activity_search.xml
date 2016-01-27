@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="loading"
+            type="boolean"/>
+    </data>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_search_activity_background">
+
+        <include
+            android:id="@+id/viewInitialLoading"
+            layout="@layout/view_initial_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            bind:loading="@{loading}"/>
 
         <android.support.v4.widget.SwipeRefreshLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
