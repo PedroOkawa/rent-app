@@ -28,6 +28,10 @@ public class RentApp extends Application {
         Fabric.with(this, new Crashlytics());
     }
 
+    private void setupDatabase() {
+
+    }
+
     private void setupComponent() {
         component = DaggerRentAppComponent
                 .builder()
