@@ -16,7 +16,6 @@ public interface ApiInterface {
     String SEARCH_API_KEY = "\"api_key\"";
     String SEARCH_QUERY = "\"query\"";
     String SEARCH_PER_PAGE = "\"perpage\"";
-    String SEARCH_PER_PAGE_VALUE = "50";
     String SEARCH_PAGE = "\"page\"";
 
     @GET(PATH_SEARCH)

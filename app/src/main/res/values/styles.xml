@@ -1,6 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <!-- MAIN THEME -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_primary</item>
@@ -8,11 +8,22 @@
         <item name="colorAccent">@color/color_accent</item>
     </style>
 
+    <!-- TITLE -->
     <style name="Title">
         <item name="android:textSize">@dimen/text_size_title</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:ellipsize">end</item>
         <item name="android:lines">1</item>
+    </style>
+
+    <!-- BUTTON -->
+    <style name="Button">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/text_size_button</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:lines">1</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
     </style>
 
 </resources>

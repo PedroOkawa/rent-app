@@ -41,7 +41,7 @@ public class ApiManager {
 
     /* SEARCH CALL */
     public void requestAdvertisements(final OnApiServiceListener listener) {
-        if(callAdvertisements()) {
+        if(advertisementRepository.canLoadNextPage()) {
             apiInterface
                     .search(defineAdvertisementsQuery())
                     .subscribeOn(Schedulers.newThread())
@@ -60,6 +60,9 @@ public class ApiManager {
                         @Override
                         public void onNext(Response response) {
                             Pagination pagination = response.getResult().getResults().getPagination();
+                            if(pagination.getCurrentPage() < pagination.getNumPages()) {
+                                pagination.setCurrentPage(pagination.getCurrentPage() + 1);
+                            }
                             List<Advertisement> advertisements = response.getResult().getResults().getAdvertisements();
 
                             advertisementRepository.updatePagination(pagination);
@@ -72,7 +75,7 @@ public class ApiManager {
     /* RETURNS PARAMETERS TO MAKE SEARCH */
     private String defineAdvertisementsQuery() {
         /* CHECK FOR PREVIOUS PAGINATION */
-        long currentPage = getCurrentPage();
+        long currentPage = advertisementRepository.getCurrentPage();
 
         /* BUILD QUERY */
         StringBuffer stringBuffer = new StringBuffer();
@@ -86,7 +89,7 @@ public class ApiManager {
         stringBuffer.append(":{");
         stringBuffer.append(ApiInterface.SEARCH_PER_PAGE);
         stringBuffer.append(":");
-        stringBuffer.append(ApiInterface.SEARCH_PER_PAGE_VALUE);
+        stringBuffer.append(AdvertisementRepository.SELECT_LIMIT);
         stringBuffer.append(",");
         stringBuffer.append(ApiInterface.SEARCH_PAGE);
         stringBuffer.append(":");
@@ -94,27 +97,6 @@ public class ApiManager {
         stringBuffer.append("}}");
 
         return stringBuffer.toString();
-    }
-
-    /* CHECK IF CAN CALL SEARCH */
-    private boolean callAdvertisements() {
-        if(advertisementRepository.paginationExists()) {
-            Pagination pagination = advertisementRepository.getPagination();
-            if(advertisementRepository.count() >= pagination.getTotal()) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /* GET CURRENT PAGE FROM PAGINATION */
-    private long getCurrentPage() {
-        if(advertisementRepository.paginationExists()) {
-            Pagination pagination = advertisementRepository.getPagination();
-            return pagination.getCurrentPage();
-        }
-        return 1;
     }
 
     /* RETURN API KEY STORED ON PROPERTIES FILE */

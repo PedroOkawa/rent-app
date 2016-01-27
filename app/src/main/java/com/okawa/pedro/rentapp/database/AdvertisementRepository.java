@@ -48,4 +48,24 @@ public class AdvertisementRepository {
     public boolean paginationExists() {
         return daoSession.getPaginationDao().count() > 0;
     }
+
+    public boolean canLoadNextPage() {
+        if (paginationExists()) {
+            Pagination pagination = getPagination();
+            if (count() < (pagination.getCurrentPage() * pagination.getPerPage())) {
+                return true;
+            }
+
+            return false;
+        }
+        return true;
+    }
+
+    public long getCurrentPage() {
+        if(paginationExists()) {
+            Pagination pagination = getPagination();
+            return pagination.getCurrentPage();
+        }
+        return 1;
+    }
 }

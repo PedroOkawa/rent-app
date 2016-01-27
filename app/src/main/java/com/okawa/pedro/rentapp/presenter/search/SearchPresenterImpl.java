@@ -26,6 +26,8 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
     private ApiManager apiManager;
     private AdvertisementRepository advertisementRepository;
 
+    private Context context;
+    private ActivitySearchBinding binding;
     private AdvertisementAdapter advertisementAdapter;
     private AutoGridLayoutManager autoGridLayoutManager;
 
@@ -39,6 +41,12 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
 
     @Override
     public void initialize(Context context, ActivitySearchBinding binding) {
+        /* STORES CONTEXT */
+        this.context = context;
+
+        /* STORES BINDING */
+        this.binding = binding;
+
         /* SHOWS PROGRESS BAR WHILE LOADING */
         searchView.showProgressBar();
 
@@ -46,12 +54,12 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
         advertisementAdapter = new AdvertisementAdapter(context, new ArrayList<Advertisement>());
         autoGridLayoutManager = new AutoGridLayoutManager(context);
 
-        binding.rvActivitySearch.setAdapter(advertisementAdapter);
-        binding.rvActivitySearch.setLayoutManager(autoGridLayoutManager);
-        binding.rvActivitySearch.addOnScrollListener(new OnSearchListener(autoGridLayoutManager));
+        this.binding.rvActivitySearch.setAdapter(advertisementAdapter);
+        this.binding.rvActivitySearch.setLayoutManager(autoGridLayoutManager);
+        this.binding.rvActivitySearch.addOnScrollListener(new OnSearchListener(autoGridLayoutManager));
 
-        /* CALLS REST SERVICE */
-        apiManager.requestAdvertisements(this);
+        /* LOAD FIRST PAGE */
+        loadNextPage();
     }
 
     @Override
@@ -61,6 +69,16 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
 
     /* LOADS ADVERTISEMENTS SEARCH PAGE */
     private void loadNextPage() {
+        this.binding.srlActivitySearch.setRefreshing(true);
+        if(advertisementRepository.canLoadNextPage()) {
+            /* CALLS REST SERVICE */
+            apiManager.requestAdvertisements(this);
+        } else {
+            loadFromDatabase();
+        }
+    }
+
+    private void loadFromDatabase() {
         List<Advertisement> advertisements =
                 advertisementRepository.selectAdvertisementsPaged(advertisementAdapter.getItemCount());
         advertisementAdapter.addDataSet(advertisements);
@@ -69,11 +87,17 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
     @Override
     public void onSuccess() {
         searchView.hideProgressBar();
+
+        this.binding.srlActivitySearch.setRefreshing(false);
+
+        loadFromDatabase();
     }
 
     @Override
     public void onError(String message) {
         searchView.hideProgressBar();
+
+        this.binding.srlActivitySearch.setRefreshing(false);
     }
 
     /* ENDLESS RECYCLER VIEW LISTENER */
