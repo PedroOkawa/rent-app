@@ -1,7 +1,5 @@
 package com.okawa.pedro.rentapp.greendao;
 
-import java.io.IOException;
-
 import de.greenrobot.daogenerator.DaoGenerator;
 import de.greenrobot.daogenerator.Entity;
 import de.greenrobot.daogenerator.Property;
@@ -38,7 +36,7 @@ public class GreenDaoManager {
     private static final String TABLE_ADVERTISEMENT_PRICE = "price";
     private static final String TABLE_ADVERTISEMENT_BEDROOMS = "bedrooms";
     private static final String TABLE_ADVERTISEMENT_BATHROOMS = "bathrooms";
-    private static final String TABLE_ADVERTISEMENT_SQUARE_METERS = "squareMetres";
+    private static final String TABLE_ADVERTISEMENT_SQUARE_METRES = "squareMeters";
     private static final String TABLE_ADVERTISEMENT_ACRES = "acres";
     private static final String TABLE_ADVERTISEMENT_FULL_ADDRESS = "fullAddress";
     private static final String TABLE_ADVERTISEMENT_GENERAL_AREA = "generalArea";
@@ -85,7 +83,7 @@ public class GreenDaoManager {
         /* ADVERTISEMENT */
         Entity advertisement = schema.addEntity(TABLE_ADVERTISEMENT);
 
-        Property advertisementPK = advertisement.addLongProperty(TABLE_ADVERTISEMENT_ID).primaryKey().getProperty();
+        advertisement.addLongProperty(TABLE_ADVERTISEMENT_ID).primaryKey();
         advertisement.addStringProperty(TABLE_ADVERTISEMENT_URL);
         advertisement.addStringProperty(TABLE_ADVERTISEMENT_PROPERTY_TYPE);
         advertisement.addStringProperty(TABLE_ADVERTISEMENT_HOUSE_TYPE);
@@ -97,7 +95,7 @@ public class GreenDaoManager {
         advertisement.addIntProperty(TABLE_ADVERTISEMENT_PRICE);
         advertisement.addIntProperty(TABLE_ADVERTISEMENT_BEDROOMS);
         advertisement.addIntProperty(TABLE_ADVERTISEMENT_BATHROOMS);
-        advertisement.addFloatProperty(TABLE_ADVERTISEMENT_SQUARE_METERS);
+        advertisement.addFloatProperty(TABLE_ADVERTISEMENT_SQUARE_METRES);
         advertisement.addFloatProperty(TABLE_ADVERTISEMENT_ACRES);
         advertisement.addStringProperty(TABLE_ADVERTISEMENT_FULL_ADDRESS);
         advertisement.addStringProperty(TABLE_ADVERTISEMENT_GENERAL_AREA);
@@ -125,7 +123,6 @@ public class GreenDaoManager {
         feature.addStringProperty(TABLE_FEATURE_DESCRIPTION);
 
         /* RELATIONSHIP (ADVERTISEMENT 1 x FEATURE M) */
-        feature.addToOne(advertisement, advertisementPK);
         advertisement.addToMany(feature, featureFK);
     }
 

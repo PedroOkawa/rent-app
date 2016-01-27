@@ -23,4 +23,8 @@ public class PaginationRepository {
         return daoSession.getPaginationDao().load((long) 0);
     }
 
+    public boolean paginationExists() {
+        return daoSession.getPaginationDao().count() > 0;
+    }
+
 }

@@ -1,5 +1,8 @@
 package com.okawa.pedro.rentapp.database;
 
+import java.util.Collection;
+
+import greendao.Advertisement;
 import greendao.DaoSession;
 
 /**
@@ -11,6 +14,10 @@ public class AdvertisementRepository {
 
     public AdvertisementRepository(DaoSession daoSession) {
         this.daoSession = daoSession;
+    }
+
+    public void insertOrReplaceInTx(Collection<Advertisement> advertisements) {
+        daoSession.getAdvertisementDao().insertOrReplaceInTx(advertisements);
     }
 
 }

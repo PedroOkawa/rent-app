@@ -35,7 +35,7 @@ public class AdvertisementDao extends AbstractDao<Advertisement, Long> {
         public final static Property Price = new Property(9, Integer.class, "price", false, "PRICE");
         public final static Property Bedrooms = new Property(10, Integer.class, "bedrooms", false, "BEDROOMS");
         public final static Property Bathrooms = new Property(11, Integer.class, "bathrooms", false, "BATHROOMS");
-        public final static Property SquareMetres = new Property(12, Float.class, "squareMetres", false, "SQUARE_METRES");
+        public final static Property SquareMeters = new Property(12, Float.class, "squareMeters", false, "SQUARE_METERS");
         public final static Property Acres = new Property(13, Float.class, "acres", false, "ACRES");
         public final static Property FullAddress = new Property(14, String.class, "fullAddress", false, "FULL_ADDRESS");
         public final static Property GeneralArea = new Property(15, String.class, "generalArea", false, "GENERAL_AREA");
@@ -84,7 +84,7 @@ public class AdvertisementDao extends AbstractDao<Advertisement, Long> {
                 "\"PRICE\" INTEGER," + // 9: price
                 "\"BEDROOMS\" INTEGER," + // 10: bedrooms
                 "\"BATHROOMS\" INTEGER," + // 11: bathrooms
-                "\"SQUARE_METRES\" REAL," + // 12: squareMetres
+                "\"SQUARE_METERS\" REAL," + // 12: squareMeters
                 "\"ACRES\" REAL," + // 13: acres
                 "\"FULL_ADDRESS\" TEXT," + // 14: fullAddress
                 "\"GENERAL_AREA\" TEXT," + // 15: generalArea
@@ -176,9 +176,9 @@ public class AdvertisementDao extends AbstractDao<Advertisement, Long> {
             stmt.bindLong(12, bathrooms);
         }
  
-        Float squareMetres = entity.getSquareMetres();
-        if (squareMetres != null) {
-            stmt.bindDouble(13, squareMetres);
+        Float squareMeters = entity.getSquareMeters();
+        if (squareMeters != null) {
+            stmt.bindDouble(13, squareMeters);
         }
  
         Float acres = entity.getAcres();
@@ -300,7 +300,7 @@ public class AdvertisementDao extends AbstractDao<Advertisement, Long> {
             cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9), // price
             cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10), // bedrooms
             cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11), // bathrooms
-            cursor.isNull(offset + 12) ? null : cursor.getFloat(offset + 12), // squareMetres
+            cursor.isNull(offset + 12) ? null : cursor.getFloat(offset + 12), // squareMeters
             cursor.isNull(offset + 13) ? null : cursor.getFloat(offset + 13), // acres
             cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // fullAddress
             cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // generalArea
@@ -338,7 +338,7 @@ public class AdvertisementDao extends AbstractDao<Advertisement, Long> {
         entity.setPrice(cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9));
         entity.setBedrooms(cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10));
         entity.setBathrooms(cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11));
-        entity.setSquareMetres(cursor.isNull(offset + 12) ? null : cursor.getFloat(offset + 12));
+        entity.setSquareMeters(cursor.isNull(offset + 12) ? null : cursor.getFloat(offset + 12));
         entity.setAcres(cursor.isNull(offset + 13) ? null : cursor.getFloat(offset + 13));
         entity.setFullAddress(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
         entity.setGeneralArea(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));

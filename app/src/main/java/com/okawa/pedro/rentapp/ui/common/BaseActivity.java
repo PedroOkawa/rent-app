@@ -20,8 +20,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     private ViewDataBinding binding;
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setupComponent(((RentApp) getApplication()).getComponent());
         setupBinding();
         doOnCreated(savedInstanceState);

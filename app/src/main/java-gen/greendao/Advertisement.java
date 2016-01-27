@@ -1,5 +1,7 @@
 package greendao;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 import greendao.DaoSession;
 import de.greenrobot.dao.DaoException;
@@ -10,11 +12,17 @@ import de.greenrobot.dao.DaoException;
  */
 public class Advertisement {
 
+    @SerializedName("ad_id")
     private Long id;
+    @SerializedName("daft_url")
     private String url;
+    @SerializedName("property_type")
     private String propertyType;
+    @SerializedName("house_type")
     private String houseType;
+    @SerializedName("selling_type")
     private String sellingType;
+    @SerializedName("price_type")
     private String priceType;
     private Integer agreed;
     private Integer priority;
@@ -22,24 +30,40 @@ public class Advertisement {
     private Integer price;
     private Integer bedrooms;
     private Integer bathrooms;
-    private Float squareMetres;
+    @SerializedName("square_meters")
+    private Float squareMeters;
     private Float acres;
+    @SerializedName("full_address")
     private String fullAddress;
+    @SerializedName("general_area")
     private String generalArea;
     private Double latitude;
     private Double longitude;
+    @SerializedName("agency_name")
     private String agencyName;
+    @SerializedName("contact_name")
     private String contactName;
+    @SerializedName("phone1")
     private String phoneOne;
+    @SerializedName("phone2")
     private String phoneTwo;
+    @SerializedName("phone_info")
     private String phoneInfo;
+    @SerializedName("main_email")
     private String emailMain;
+    @SerializedName("cc_email")
     private String emailCC;
+    @SerializedName("start_date")
     private Long startDate;
+    @SerializedName("listing_date")
     private Long listingDate;
+    @SerializedName("agreed_date")
     private Long agreedDate;
+    @SerializedName("small_thumbnail_url")
     private String imageSmall;
+    @SerializedName("medium_thumbnail_url")
     private String imageMedium;
+    @SerializedName("large_thumbnail_url")
     private String imageLarge;
 
     /** Used to resolve relations */
@@ -57,7 +81,7 @@ public class Advertisement {
         this.id = id;
     }
 
-    public Advertisement(Long id, String url, String propertyType, String houseType, String sellingType, String priceType, Integer agreed, Integer priority, String description, Integer price, Integer bedrooms, Integer bathrooms, Float squareMetres, Float acres, String fullAddress, String generalArea, Double latitude, Double longitude, String agencyName, String contactName, String phoneOne, String phoneTwo, String phoneInfo, String emailMain, String emailCC, Long startDate, Long listingDate, Long agreedDate, String imageSmall, String imageMedium, String imageLarge) {
+    public Advertisement(Long id, String url, String propertyType, String houseType, String sellingType, String priceType, Integer agreed, Integer priority, String description, Integer price, Integer bedrooms, Integer bathrooms, Float squareMeters, Float acres, String fullAddress, String generalArea, Double latitude, Double longitude, String agencyName, String contactName, String phoneOne, String phoneTwo, String phoneInfo, String emailMain, String emailCC, Long startDate, Long listingDate, Long agreedDate, String imageSmall, String imageMedium, String imageLarge) {
         this.id = id;
         this.url = url;
         this.propertyType = propertyType;
@@ -70,7 +94,7 @@ public class Advertisement {
         this.price = price;
         this.bedrooms = bedrooms;
         this.bathrooms = bathrooms;
-        this.squareMetres = squareMetres;
+        this.squareMeters = squareMeters;
         this.acres = acres;
         this.fullAddress = fullAddress;
         this.generalArea = generalArea;
@@ -193,12 +217,12 @@ public class Advertisement {
         this.bathrooms = bathrooms;
     }
 
-    public Float getSquareMetres() {
-        return squareMetres;
+    public Float getSquareMeters() {
+        return squareMeters;
     }
 
-    public void setSquareMetres(Float squareMetres) {
-        this.squareMetres = squareMetres;
+    public void setSquareMeters(Float squareMeters) {
+        this.squareMeters = squareMeters;
     }
 
     public Float getAcres() {

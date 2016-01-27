@@ -4,6 +4,7 @@ import com.okawa.pedro.rentapp.di.scope.Activity;
 import com.okawa.pedro.rentapp.presenter.main.MainPresenter;
 import com.okawa.pedro.rentapp.presenter.main.MainPresenterImpl;
 import com.okawa.pedro.rentapp.ui.main.MainView;
+import com.okawa.pedro.rentapp.util.ApiManager;
 
 import dagger.Module;
 import dagger.Provides;
@@ -28,7 +29,7 @@ public class MainModule {
 
     @Activity
     @Provides
-    public MainPresenter providesMainPresenter(MainView mainView) {
-        return new MainPresenterImpl(mainView);
+    public MainPresenter providesMainPresenter(MainView mainView, ApiManager apiManager) {
+        return new MainPresenterImpl(mainView, apiManager);
     }
 }

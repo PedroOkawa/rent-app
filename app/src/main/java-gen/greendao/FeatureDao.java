@@ -1,14 +1,12 @@
 package greendao;
 
 import java.util.List;
-import java.util.ArrayList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
 import de.greenrobot.dao.AbstractDao;
 import de.greenrobot.dao.Property;
-import de.greenrobot.dao.internal.SqlUtils;
 import de.greenrobot.dao.internal.DaoConfig;
 import de.greenrobot.dao.query.Query;
 import de.greenrobot.dao.query.QueryBuilder;
@@ -31,10 +29,7 @@ public class FeatureDao extends AbstractDao<Feature, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "ID");
         public final static Property AdvertisementId = new Property(1, Long.class, "advertisementId", false, "ADVERTISEMENT_ID");
         public final static Property Description = new Property(2, String.class, "description", false, "DESCRIPTION");
-        public final static Property Id = new Property(3, Long.class, "id", true, "ID");
     };
-
-    private DaoSession daoSession;
 
     private Query<Feature> advertisement_FeatureListQuery;
 
@@ -44,7 +39,6 @@ public class FeatureDao extends AbstractDao<Feature, Long> {
     
     public FeatureDao(DaoConfig config, DaoSession daoSession) {
         super(config, daoSession);
-        this.daoSession = daoSession;
     }
 
     /** Creates the underlying database table. */
@@ -53,8 +47,7 @@ public class FeatureDao extends AbstractDao<Feature, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"FEATURE\" (" + //
                 "\"ID\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"ADVERTISEMENT_ID\" INTEGER," + // 1: advertisementId
-                "\"DESCRIPTION\" TEXT," + // 2: description
-                "\"ID\" INTEGER PRIMARY KEY );"); // 3: id
+                "\"DESCRIPTION\" TEXT);"); // 2: description
     }
 
     /** Drops the underlying database table. */
@@ -82,12 +75,6 @@ public class FeatureDao extends AbstractDao<Feature, Long> {
         if (description != null) {
             stmt.bindString(3, description);
         }
-    }
-
-    @Override
-    protected void attachEntity(Feature entity) {
-        super.attachEntity(entity);
-        entity.__setDaoSession(daoSession);
     }
 
     /** @inheritdoc */
@@ -152,95 +139,4 @@ public class FeatureDao extends AbstractDao<Feature, Long> {
         return query.list();
     }
 
-    private String selectDeep;
-
-    protected String getSelectDeep() {
-        if (selectDeep == null) {
-            StringBuilder builder = new StringBuilder("SELECT ");
-            SqlUtils.appendColumns(builder, "T", getAllColumns());
-            builder.append(',');
-            SqlUtils.appendColumns(builder, "T0", daoSession.getAdvertisementDao().getAllColumns());
-            builder.append(" FROM FEATURE T");
-            builder.append(" LEFT JOIN ADVERTISEMENT T0 ON T.\"ID\"=T0.\"ID\"");
-            builder.append(' ');
-            selectDeep = builder.toString();
-        }
-        return selectDeep;
-    }
-    
-    protected Feature loadCurrentDeep(Cursor cursor, boolean lock) {
-        Feature entity = loadCurrent(cursor, 0, lock);
-        int offset = getAllColumns().length;
-
-        Advertisement advertisement = loadCurrentOther(daoSession.getAdvertisementDao(), cursor, offset);
-        entity.setAdvertisement(advertisement);
-
-        return entity;    
-    }
-
-    public Feature loadDeep(Long key) {
-        assertSinglePk();
-        if (key == null) {
-            return null;
-        }
-
-        StringBuilder builder = new StringBuilder(getSelectDeep());
-        builder.append("WHERE ");
-        SqlUtils.appendColumnsEqValue(builder, "T", getPkColumns());
-        String sql = builder.toString();
-        
-        String[] keyArray = new String[] { key.toString() };
-        Cursor cursor = db.rawQuery(sql, keyArray);
-        
-        try {
-            boolean available = cursor.moveToFirst();
-            if (!available) {
-                return null;
-            } else if (!cursor.isLast()) {
-                throw new IllegalStateException("Expected unique result, but count was " + cursor.getCount());
-            }
-            return loadCurrentDeep(cursor, true);
-        } finally {
-            cursor.close();
-        }
-    }
-    
-    /** Reads all available rows from the given cursor and returns a list of new ImageTO objects. */
-    public List<Feature> loadAllDeepFromCursor(Cursor cursor) {
-        int count = cursor.getCount();
-        List<Feature> list = new ArrayList<Feature>(count);
-        
-        if (cursor.moveToFirst()) {
-            if (identityScope != null) {
-                identityScope.lock();
-                identityScope.reserveRoom(count);
-            }
-            try {
-                do {
-                    list.add(loadCurrentDeep(cursor, false));
-                } while (cursor.moveToNext());
-            } finally {
-                if (identityScope != null) {
-                    identityScope.unlock();
-                }
-            }
-        }
-        return list;
-    }
-    
-    protected List<Feature> loadDeepAllAndCloseCursor(Cursor cursor) {
-        try {
-            return loadAllDeepFromCursor(cursor);
-        } finally {
-            cursor.close();
-        }
-    }
-    
-
-    /** A raw-style query where you can pass any WHERE clause and arguments. */
-    public List<Feature> queryDeep(String where, String... selectionArg) {
-        Cursor cursor = db.rawQuery(getSelectDeep() + where, selectionArg);
-        return loadDeepAllAndCloseCursor(cursor);
-    }
- 
 }
