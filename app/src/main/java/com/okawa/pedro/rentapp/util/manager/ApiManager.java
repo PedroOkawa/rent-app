@@ -42,16 +42,7 @@ public class ApiManager {
     }
 
     public void requestAdvertisements() {
-        boolean callApi = true;
-
-        if(paginationRepository.paginationExists()) {
-            Pagination pagination = paginationRepository.getPagination();
-            if(advertisementRepository.count() >= pagination.getTotal()) {
-                callApi = false;
-            }
-        }
-
-        if(callApi) {
+        if(callListAdvertisements()) {
             apiInterface
                     .listAdvertisements(defineQuery())
                     .subscribeOn(Schedulers.newThread())
@@ -79,13 +70,20 @@ public class ApiManager {
         }
     }
 
-    private String defineQuery() {
-        /* CHECK FOR PREVIOUS PAGINATION */
-        long page = 1;
+    private boolean callListAdvertisements() {
         if(paginationRepository.paginationExists()) {
             Pagination pagination = paginationRepository.getPagination();
-            page = pagination.getCurrentPage();
+            if(advertisementRepository.count() >= pagination.getTotal()) {
+                return false;
+            }
         }
+
+        return true;
+    }
+
+    private String defineQuery() {
+        /* CHECK FOR PREVIOUS PAGINATION */
+        long currentPage = getCurrentPage();
 
         /* BUILD QUERY */
         StringBuffer stringBuffer = new StringBuffer();
@@ -93,7 +91,7 @@ public class ApiManager {
         stringBuffer.append("{");
         stringBuffer.append(ApiInterface.SEARCH_API_KEY);
         stringBuffer.append(":\"");
-        stringBuffer.append(retrieveApiKey());
+        stringBuffer.append(getApiKey());
         stringBuffer.append("\",");
         stringBuffer.append(ApiInterface.SEARCH_QUERY);
         stringBuffer.append(":{");
@@ -103,13 +101,21 @@ public class ApiManager {
         stringBuffer.append(",");
         stringBuffer.append(ApiInterface.SEARCH_PAGE);
         stringBuffer.append(":");
-        stringBuffer.append(page);
+        stringBuffer.append(currentPage);
         stringBuffer.append("}}");
 
         return stringBuffer.toString();
     }
 
-    private String retrieveApiKey() {
+    private long getCurrentPage() {
+        if(paginationRepository.paginationExists()) {
+            Pagination pagination = paginationRepository.getPagination();
+            return pagination.getCurrentPage();
+        }
+        return 1;
+    }
+
+    private String getApiKey() {
         String apiKey = "";
 
         Properties properties = new Properties();
