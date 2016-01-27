@@ -27,7 +27,6 @@ public interface RentAppComponent {
     RentApp providesRentApp();
 
     /* API */
-    OkHttpClient providesOkHttpClient();
     ApiInterface providesApiInterface();
     ApiManager providesApiManager();
 

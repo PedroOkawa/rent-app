@@ -1,8 +1,6 @@
 package com.okawa.pedro.rentapp.ui.main;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.okawa.pedro.rentapp.R;
 import com.okawa.pedro.rentapp.di.component.DaggerMainComponent;
@@ -38,7 +36,6 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     protected void doOnCreated(Bundle savedInstanceState) {
-        Log.d("TEST", "IMPOSSIBLE");
         mainPresenter.setupView();
     }
 }

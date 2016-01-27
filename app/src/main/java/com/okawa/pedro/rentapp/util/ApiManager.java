@@ -21,15 +21,15 @@ import rx.schedulers.Schedulers;
 public class ApiManager {
 
     private ApiInterface apiInterface;
-    private PaginationRepository paginationRepository;
     private AdvertisementRepository advertisementRepository;
+    private PaginationRepository paginationRepository;
 
     public ApiManager(ApiInterface apiInterface,
-                      PaginationRepository paginationRepository,
-                      AdvertisementRepository advertisementRepository) {
+                      AdvertisementRepository advertisementRepository,
+                      PaginationRepository paginationRepository) {
         this.apiInterface = apiInterface;
-        this.paginationRepository = paginationRepository;
         this.advertisementRepository = advertisementRepository;
+        this.paginationRepository = paginationRepository;
     }
 
     public void requestAdvertisements() {

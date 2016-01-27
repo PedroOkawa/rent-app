@@ -1,8 +1,11 @@
 package com.okawa.pedro.rentapp.di.module;
 
+import com.okawa.pedro.rentapp.database.AdvertisementRepository;
 import com.okawa.pedro.rentapp.database.PaginationRepository;
 import com.okawa.pedro.rentapp.network.ApiInterface;
 import com.okawa.pedro.rentapp.util.ApiManager;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
@@ -26,18 +29,11 @@ public class ApiModule {
 
     @Singleton
     @Provides
-    public OkHttpClient providesOkHttpClient() {
-        OkHttpClient okHttpClient = new OkHttpClient();
-        return okHttpClient;
-    }
-
-    @Singleton
-    @Provides
-    public ApiInterface providesApiInterface(OkHttpClient okHttpClient) {
+    public ApiInterface providesApiInterface() {
         return new Retrofit
                 .Builder()
                 .baseUrl(BASE_URL)
-                .client(okHttpClient)
+                .client(new OkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build()
@@ -46,8 +42,10 @@ public class ApiModule {
 
     @Singleton
     @Provides
-    public ApiManager providesApiManager(ApiInterface apiInterface, PaginationRepository paginationRepository) {
-        return new ApiManager(apiInterface, paginationRepository);
+    public ApiManager providesApiManager(ApiInterface apiInterface,
+                                         AdvertisementRepository advertisementRepository,
+                                         PaginationRepository paginationRepository) {
+        return new ApiManager(apiInterface, advertisementRepository, paginationRepository);
     }
 
 }

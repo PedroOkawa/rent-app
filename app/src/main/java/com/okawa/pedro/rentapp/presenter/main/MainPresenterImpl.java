@@ -1,7 +1,5 @@
 package com.okawa.pedro.rentapp.presenter.main;
 
-import android.util.Log;
-
 import com.okawa.pedro.rentapp.ui.main.MainView;
 import com.okawa.pedro.rentapp.util.ApiManager;
 
@@ -20,7 +18,6 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void setupView() {
-        Log.d("TEST", "CACETE");
         apiManager.requestAdvertisements();
     }
 }
