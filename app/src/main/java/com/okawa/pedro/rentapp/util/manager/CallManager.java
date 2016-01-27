@@ -10,8 +10,8 @@ import com.okawa.pedro.rentapp.ui.search.SearchActivity;
  */
 public class CallManager {
 
-    public Intent search(Context context) {
-        return new Intent(context, SearchActivity.class);
+    public void search(Context context) {
+        context.startActivity(new Intent(context, SearchActivity.class));
     }
 
 }

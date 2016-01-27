@@ -2,7 +2,6 @@ package com.okawa.pedro.rentapp.di.module;
 
 import com.okawa.pedro.rentapp.RentApp;
 import com.okawa.pedro.rentapp.database.AdvertisementRepository;
-import com.okawa.pedro.rentapp.database.PaginationRepository;
 import com.okawa.pedro.rentapp.network.ApiInterface;
 import com.okawa.pedro.rentapp.util.manager.ApiManager;
 
@@ -43,9 +42,8 @@ public class ApiModule {
     @Provides
     public ApiManager providesApiManager(RentApp rentApp,
                                          ApiInterface apiInterface,
-                                         AdvertisementRepository advertisementRepository,
-                                         PaginationRepository paginationRepository) {
-        return new ApiManager(rentApp, apiInterface, advertisementRepository, paginationRepository);
+                                         AdvertisementRepository advertisementRepository) {
+        return new ApiManager(rentApp, apiInterface, advertisementRepository);
     }
 
 }

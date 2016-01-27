@@ -2,7 +2,6 @@ package com.okawa.pedro.rentapp.di.component;
 
 import com.okawa.pedro.rentapp.RentApp;
 import com.okawa.pedro.rentapp.database.AdvertisementRepository;
-import com.okawa.pedro.rentapp.database.PaginationRepository;
 import com.okawa.pedro.rentapp.di.module.ApiModule;
 import com.okawa.pedro.rentapp.di.module.CallModule;
 import com.okawa.pedro.rentapp.di.module.DatabaseModule;
@@ -35,7 +34,6 @@ public interface RentAppComponent {
     CallManager providesCallManager();
 
     /* DATABASE */
-    PaginationRepository providesPaginationRepository();
     AdvertisementRepository providesAdvertisementRepository();
 
 }

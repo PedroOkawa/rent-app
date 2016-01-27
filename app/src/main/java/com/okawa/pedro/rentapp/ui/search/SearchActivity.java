@@ -1,5 +1,6 @@
 package com.okawa.pedro.rentapp.ui.search;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.okawa.pedro.rentapp.R;
@@ -37,6 +38,22 @@ public class SearchActivity extends BaseActivity implements SearchView {
 
     @Override
     protected void doOnCreated(Bundle savedInstanceState) {
-        searchPresenter.setupViews((ActivitySearchBinding) getBinding());
+        searchPresenter.initialize(this, (ActivitySearchBinding) getBinding());
+    }
+
+    @Override
+    public void showProgressBar() {
+
+    }
+
+    @Override
+    public void hideProgressBar() {
+
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        searchPresenter.onOrientationChanged(newConfig.orientation);
     }
 }

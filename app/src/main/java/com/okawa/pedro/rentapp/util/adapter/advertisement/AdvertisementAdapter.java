@@ -1,10 +1,11 @@
 package com.okawa.pedro.rentapp.util.adapter.advertisement;
 
-import android.databinding.ViewDataBinding;
+import android.content.Context;
 
 import com.okawa.pedro.rentapp.R;
 import com.okawa.pedro.rentapp.databinding.AdapterAdvertisementBinding;
 import com.okawa.pedro.rentapp.util.adapter.common.BindingAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -15,8 +16,11 @@ import greendao.Advertisement;
  */
 public class AdvertisementAdapter extends BindingAdapter<Advertisement, AdapterAdvertisementBinding> {
 
-    public AdvertisementAdapter(List<Advertisement> data) {
+    private Context context;
+
+    public AdvertisementAdapter(Context context, List<Advertisement> data) {
         super(data);
+        this.context = context;
     }
 
     @Override
@@ -28,6 +32,15 @@ public class AdvertisementAdapter extends BindingAdapter<Advertisement, AdapterA
     protected void doOnBindViewHolder(BindingViewHolder holder,
                                       AdapterAdvertisementBinding binding,
                                       int position, Advertisement item) {
+
+        binding.setAdvertisement(item);
+
+        Picasso.with(context)
+                .load(item.getImageLarge())
+                .placeholder(R.mipmap.ic_image)
+                .centerCrop()
+                .fit()
+                .into(binding.ivAdapterAdvertisement);
 
     }
 }

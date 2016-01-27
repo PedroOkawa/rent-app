@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.crashlytics.android.Crashlytics;
 import com.okawa.pedro.rentapp.database.AdvertisementRepository;
-import com.okawa.pedro.rentapp.database.PaginationRepository;
 import com.okawa.pedro.rentapp.model.Response;
 import com.okawa.pedro.rentapp.network.ApiInterface;
 import com.okawa.pedro.rentapp.util.listener.OnApiServiceListener;
@@ -25,27 +24,26 @@ import rx.schedulers.Schedulers;
  */
 public class ApiManager {
 
+    private static final String API_PROPERTIES = "api.properties";
     private static final String API_KEY = "key";
 
     private Context context;
     private ApiInterface apiInterface;
     private AdvertisementRepository advertisementRepository;
-    private PaginationRepository paginationRepository;
 
     public ApiManager(Context context,
                       ApiInterface apiInterface,
-                      AdvertisementRepository advertisementRepository,
-                      PaginationRepository paginationRepository) {
+                      AdvertisementRepository advertisementRepository) {
         this.context = context;
         this.apiInterface = apiInterface;
         this.advertisementRepository = advertisementRepository;
-        this.paginationRepository = paginationRepository;
     }
 
+    /* SEARCH CALL */
     public void requestAdvertisements(final OnApiServiceListener listener) {
-        if(callListAdvertisements()) {
+        if(callAdvertisements()) {
             apiInterface
-                    .listAdvertisements(defineQuery())
+                    .search(defineAdvertisementsQuery())
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<Response>() {
@@ -64,25 +62,15 @@ public class ApiManager {
                             Pagination pagination = response.getResult().getResults().getPagination();
                             List<Advertisement> advertisements = response.getResult().getResults().getAdvertisements();
 
-                            paginationRepository.updatePagination(pagination);
+                            advertisementRepository.updatePagination(pagination);
                             advertisementRepository.insertOrReplaceInTx(advertisements);
                         }
                     });
         }
     }
 
-    private boolean callListAdvertisements() {
-        if(paginationRepository.paginationExists()) {
-            Pagination pagination = paginationRepository.getPagination();
-            if(advertisementRepository.count() >= pagination.getTotal()) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private String defineQuery() {
+    /* RETURNS PARAMETERS TO MAKE SEARCH */
+    private String defineAdvertisementsQuery() {
         /* CHECK FOR PREVIOUS PAGINATION */
         long currentPage = getCurrentPage();
 
@@ -108,20 +96,34 @@ public class ApiManager {
         return stringBuffer.toString();
     }
 
+    /* CHECK IF CAN CALL SEARCH */
+    private boolean callAdvertisements() {
+        if(advertisementRepository.paginationExists()) {
+            Pagination pagination = advertisementRepository.getPagination();
+            if(advertisementRepository.count() >= pagination.getTotal()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /* GET CURRENT PAGE FROM PAGINATION */
     private long getCurrentPage() {
-        if(paginationRepository.paginationExists()) {
-            Pagination pagination = paginationRepository.getPagination();
+        if(advertisementRepository.paginationExists()) {
+            Pagination pagination = advertisementRepository.getPagination();
             return pagination.getCurrentPage();
         }
         return 1;
     }
 
+    /* RETURN API KEY STORED ON PROPERTIES FILE */
     private String getApiKey() {
         String apiKey = "";
 
         Properties properties = new Properties();
         try {
-            InputStream inputStream = context.getAssets().open("api.properties");
+            InputStream inputStream = context.getAssets().open(API_PROPERTIES);
             properties.load(inputStream);
 
             apiKey = properties.getProperty(API_KEY);

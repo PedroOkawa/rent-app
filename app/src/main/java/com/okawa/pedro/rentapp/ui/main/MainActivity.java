@@ -37,6 +37,6 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     protected void doOnCreated(Bundle savedInstanceState) {
-        mainPresenter.setupViews((ActivityMainBinding) getBinding());
+        mainPresenter.initialize(this, (ActivityMainBinding) getBinding());
     }
 }

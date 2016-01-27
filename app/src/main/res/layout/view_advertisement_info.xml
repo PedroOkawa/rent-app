@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="advertisement"
+            type="greendao.Advertisement"/>
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rlViewAdvertisementInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_advertisement_info_background">
+        
+        <TextView
+            style="@style/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/view_advertisement_info_address_margin"
+            android:text="@{advertisement.fullAddress}"/>
+
+    </RelativeLayout>
+</layout>

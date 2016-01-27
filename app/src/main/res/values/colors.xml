@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!-- MAIN THEME -->
+    <color name="color_primary">@color/indigo_500</color>
+    <color name="color_primary_dark">@color/indigo_800</color>
+    <color name="color_accent">@color/pink_A200</color>
+
+    <!-- SEARCH ACTIVITY -->
+    <color name="color_search_activity_background">@color/black_transparent_12</color>
+
+    <!-- VIEW ADVERTISEMENT INFO -->
+    <color name="color_advertisement_info_background">@color/color_black_alpha_7F</color>
+
+    <!-- COMMON -->
+    <color name="color_black_alpha_7F">#7F000000</color>
 </resources>

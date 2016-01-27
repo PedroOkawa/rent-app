@@ -4,7 +4,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.okawa.pedro.rentapp.RentApp;
 import com.okawa.pedro.rentapp.database.AdvertisementRepository;
-import com.okawa.pedro.rentapp.database.PaginationRepository;
 
 import javax.inject.Singleton;
 
@@ -28,12 +27,6 @@ public class DatabaseModule {
         SQLiteDatabase db = helper.getWritableDatabase();
         DaoMaster daoMaster = new DaoMaster(db);
         return daoMaster.newSession();
-    }
-
-    @Singleton
-    @Provides
-    public PaginationRepository providesPaginationRepository(DaoSession daoSession) {
-        return new PaginationRepository(daoSession);
     }
 
     @Singleton

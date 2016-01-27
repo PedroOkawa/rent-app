@@ -1,9 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="advertisement"
+            type="greendao.Advertisement"/>
+    </data>
+
+    <FrameLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="@dimen/adapter_advertisement_card_height"
+        android:layout_margin="@dimen/adapter_advertisement_card_margin"
+        android:elevation="@dimen/adapter_advertisement_card_elevation"
+        android:clipToPadding="false"
+        android:outlineProvider="bounds"
+        android:foreground="?android:attr/selectableItemBackground">
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/ivAdapterAdvertisement"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
+
+        <RelativeLayout
+            android:id="@+id/rlAdvertisementInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom" >
+
+            <include
+                android:id="@+id/viewAdvertisementInfo"
+                layout="@layout/view_advertisement_info"
+                bind:advertisement="@{advertisement}"/>
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
 </layout>

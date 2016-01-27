@@ -1,5 +1,7 @@
 package com.okawa.pedro.rentapp.presenter.main;
 
+import android.content.Context;
+
 import com.okawa.pedro.rentapp.databinding.ActivityMainBinding;
 
 /**
@@ -7,6 +9,6 @@ import com.okawa.pedro.rentapp.databinding.ActivityMainBinding;
  */
 public interface MainPresenter {
 
-    void setupViews(ActivityMainBinding binding);
+    void initialize(Context context, ActivityMainBinding binding);
 
 }

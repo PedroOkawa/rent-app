@@ -20,6 +20,6 @@ public interface ApiInterface {
     String SEARCH_PAGE = "\"page\"";
 
     @GET(PATH_SEARCH)
-    Observable<Response> listAdvertisements(@Query(SEARCH_PARAMETERS) String parameters);
+    Observable<Response> search(@Query(SEARCH_PARAMETERS) String parameters);
 
 }
