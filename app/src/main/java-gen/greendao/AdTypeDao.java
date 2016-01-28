@@ -24,8 +24,9 @@ public class AdTypeDao extends AbstractDao<AdType, String> {
     */
     public static class Properties {
         public final static Property Name = new Property(0, String.class, "name", true, "NAME");
-        public final static Property DescriptionShort = new Property(1, String.class, "descriptionShort", false, "DESCRIPTION_SHORT");
-        public final static Property Description = new Property(2, String.class, "description", false, "DESCRIPTION");
+        public final static Property Description = new Property(1, String.class, "description", false, "DESCRIPTION");
+        public final static Property DescriptionPlural = new Property(2, String.class, "descriptionPlural", false, "DESCRIPTION_PLURAL");
+        public final static Property DescriptionShort = new Property(3, String.class, "descriptionShort", false, "DESCRIPTION_SHORT");
     };
 
 
@@ -42,8 +43,9 @@ public class AdTypeDao extends AbstractDao<AdType, String> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"AD_TYPE\" (" + //
                 "\"NAME\" TEXT PRIMARY KEY NOT NULL ," + // 0: name
-                "\"DESCRIPTION_SHORT\" TEXT," + // 1: descriptionShort
-                "\"DESCRIPTION\" TEXT);"); // 2: description
+                "\"DESCRIPTION\" TEXT," + // 1: description
+                "\"DESCRIPTION_PLURAL\" TEXT," + // 2: descriptionPlural
+                "\"DESCRIPTION_SHORT\" TEXT);"); // 3: descriptionShort
     }
 
     /** Drops the underlying database table. */
@@ -62,14 +64,19 @@ public class AdTypeDao extends AbstractDao<AdType, String> {
             stmt.bindString(1, name);
         }
  
-        String descriptionShort = entity.getDescriptionShort();
-        if (descriptionShort != null) {
-            stmt.bindString(2, descriptionShort);
-        }
- 
         String description = entity.getDescription();
         if (description != null) {
-            stmt.bindString(3, description);
+            stmt.bindString(2, description);
+        }
+ 
+        String descriptionPlural = entity.getDescriptionPlural();
+        if (descriptionPlural != null) {
+            stmt.bindString(3, descriptionPlural);
+        }
+ 
+        String descriptionShort = entity.getDescriptionShort();
+        if (descriptionShort != null) {
+            stmt.bindString(4, descriptionShort);
         }
     }
 
@@ -84,8 +91,9 @@ public class AdTypeDao extends AbstractDao<AdType, String> {
     public AdType readEntity(Cursor cursor, int offset) {
         AdType entity = new AdType( //
             cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // name
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // descriptionShort
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // description
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // description
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // descriptionPlural
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // descriptionShort
         );
         return entity;
     }
@@ -94,8 +102,9 @@ public class AdTypeDao extends AbstractDao<AdType, String> {
     @Override
     public void readEntity(Cursor cursor, AdType entity, int offset) {
         entity.setName(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
-        entity.setDescriptionShort(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setDescription(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setDescription(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setDescriptionPlural(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setDescriptionShort(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
     
     /** @inheritdoc */

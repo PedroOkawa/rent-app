@@ -6,5 +6,6 @@ package com.okawa.pedro.rentapp.ui.filter;
 public interface FilterView {
 
     void initializeToolbar(String title);
+    void onError(String message);
 
 }

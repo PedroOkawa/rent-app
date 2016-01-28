@@ -21,6 +21,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <!-- TODO CHANGE THIS LAYOUT TO SHOW ALL POSSIBLE FILTERS -->
+
                 <TextView
                     style="@style/Display"
                     android:layout_width="wrap_content"

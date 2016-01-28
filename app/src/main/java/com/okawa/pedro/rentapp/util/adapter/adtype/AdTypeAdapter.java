@@ -47,7 +47,7 @@ public class AdTypeAdapter extends BindingAdapter<AdType, AdapterAdTypeBinding> 
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callManager.filter(context, item.getDescriptionShort());
+                callManager.filter(context, item.getName());
             }
         });
     }

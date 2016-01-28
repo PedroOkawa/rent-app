@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import greendao.AdType;
+import greendao.AdTypeDao;
 import greendao.DaoSession;
 
 /**
@@ -20,6 +21,10 @@ public class AdTypeRepository {
 
     public void updateAdTypeInTx(Collection<AdType> advertisements) {
         daoSession.getAdTypeDao().insertOrReplaceInTx(advertisements);
+    }
+
+    public AdType selectAdTypeByName(String name) {
+        return daoSession.getAdTypeDao().queryBuilder().where(AdTypeDao.Properties.Name.eq(name)).unique();
     }
 
     public List<AdType> selectAllAdType() {

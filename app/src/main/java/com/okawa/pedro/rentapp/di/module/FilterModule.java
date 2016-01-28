@@ -1,5 +1,6 @@
 package com.okawa.pedro.rentapp.di.module;
 
+import com.okawa.pedro.rentapp.database.AdTypeRepository;
 import com.okawa.pedro.rentapp.di.scope.Activity;
 import com.okawa.pedro.rentapp.presenter.filter.FilterPresenter;
 import com.okawa.pedro.rentapp.presenter.filter.FilterPresenterImpl;
@@ -29,8 +30,10 @@ public class FilterModule {
 
     @Activity
     @Provides
-    public FilterPresenter providesFilterPresnter(FilterView filterView, CallManager callManager) {
-        return new FilterPresenterImpl(filterView, callManager);
+    public FilterPresenter providesFilterPresenter(FilterView filterView,
+                                                   CallManager callManager,
+                                                   AdTypeRepository adTypeRepository) {
+        return new FilterPresenterImpl(filterView, callManager, adTypeRepository);
     }
 
 

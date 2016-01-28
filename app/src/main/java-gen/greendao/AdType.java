@@ -13,11 +13,22 @@ public class AdType {
 
     // KEEP FIELDS - put your custom fields here
 
+    public static final String TYPE_SHORT_TERM = "shortterm";
+    public static final String TYPE_SHARING = "sharing";
+    public static final String TYPE_SALE = "sale";
+    public static final String TYPE_RENTAL = "rental";
+    public static final String TYPE_PARKING = "parking";
+    public static final String TYPE_NEW_DEVELOPMENT = "new_development";
+    public static final String TYPE_COMMERCIAL = "commercial";
+
     private String name;
-    @SerializedName("desc_short")
-    private String descriptionShort;
     @SerializedName("desc")
     private String description;
+    @SerializedName("desc_plural")
+    private String descriptionPlural;
+    @SerializedName("desc_short")
+    private String descriptionShort;
+
     // KEEP FIELDS END
 
     public AdType() {
@@ -27,10 +38,11 @@ public class AdType {
         this.name = name;
     }
 
-    public AdType(String name, String descriptionShort, String description) {
+    public AdType(String name, String description, String descriptionPlural, String descriptionShort) {
         this.name = name;
-        this.descriptionShort = descriptionShort;
         this.description = description;
+        this.descriptionPlural = descriptionPlural;
+        this.descriptionShort = descriptionShort;
     }
 
     public String getName() {
@@ -41,20 +53,28 @@ public class AdType {
         this.name = name;
     }
 
-    public String getDescriptionShort() {
-        return descriptionShort;
-    }
-
-    public void setDescriptionShort(String descriptionShort) {
-        this.descriptionShort = descriptionShort;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDescriptionPlural() {
+        return descriptionPlural;
+    }
+
+    public void setDescriptionPlural(String descriptionPlural) {
+        this.descriptionPlural = descriptionPlural;
+    }
+
+    public String getDescriptionShort() {
+        return descriptionShort;
+    }
+
+    public void setDescriptionShort(String descriptionShort) {
+        this.descriptionShort = descriptionShort;
     }
 
     // KEEP METHODS - put your custom methods here
