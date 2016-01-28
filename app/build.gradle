@@ -67,6 +67,9 @@ dependencies {
     /* GREENDAO */
     compile 'de.greenrobot:greendao:2.0.0'
 
+    /* OBSERVABLE SCROLLVIEW */
+    compile 'com.github.ksoichiro:android-observablescrollview:1.5.2'
+
     /* PICASSO */
     compile 'com.squareup.picasso:picasso:2.5.2'
 

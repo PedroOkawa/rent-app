@@ -1,6 +1,7 @@
 package com.okawa.pedro.rentapp.network;
 
-import com.okawa.pedro.rentapp.model.Response;
+import com.okawa.pedro.rentapp.model.ResponseAdType;
+import com.okawa.pedro.rentapp.model.ResponseSearch;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -11,14 +12,15 @@ import rx.Observable;
  */
 public interface ApiInterface {
 
+    String PARAMETERS = "parameters";
+
     String PATH_SEARCH = "search_sale";
-    String SEARCH_PARAMETERS = "parameters";
-    String SEARCH_API_KEY = "\"api_key\"";
-    String SEARCH_QUERY = "\"query\"";
-    String SEARCH_PER_PAGE = "\"perpage\"";
-    String SEARCH_PAGE = "\"page\"";
+    String PATH_AD_TYPES = "ad_types";
 
     @GET(PATH_SEARCH)
-    Observable<Response> search(@Query(SEARCH_PARAMETERS) String parameters);
+    Observable<ResponseSearch> search(@Query(PARAMETERS) String parameters);
+
+    @GET(PATH_AD_TYPES)
+    Observable<ResponseAdType> adTypes(@Query(PARAMETERS) String parameters);
 
 }

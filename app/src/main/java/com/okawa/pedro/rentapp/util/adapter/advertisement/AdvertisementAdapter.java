@@ -18,7 +18,7 @@ public class AdvertisementAdapter extends BindingAdapter<Advertisement, AdapterA
 
     private Context context;
 
-    public AdvertisementAdapter(Context context, List<Advertisement> data) {
+    public AdvertisementAdapter(List<Advertisement> data, Context context) {
         super(data);
         this.context = context;
     }

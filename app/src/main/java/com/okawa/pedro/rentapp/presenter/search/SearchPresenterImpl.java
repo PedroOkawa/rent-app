@@ -29,7 +29,7 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
 
     private AdvertisementAdapter advertisementAdapter;
     private AutoGridLayoutManager autoGridLayoutManager;
-    private OnSearchListener onSearchListener;
+    private OnSearchListListener onSearchListListener;
 
     public SearchPresenterImpl(SearchView searchView,
                                ApiManager apiManager,
@@ -45,18 +45,18 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
         binding.setLoading(true);
 
         /* INITIALIZE VIEWS */
-        advertisementAdapter = new AdvertisementAdapter(context, new ArrayList<Advertisement>());
+        advertisementAdapter = new AdvertisementAdapter(new ArrayList<Advertisement>(), context);
         autoGridLayoutManager = new AutoGridLayoutManager(context);
-        onSearchListener = new OnSearchListener(autoGridLayoutManager);
+        onSearchListListener = new OnSearchListListener(autoGridLayoutManager);
 
         binding.rvActivitySearch.setAdapter(advertisementAdapter);
         binding.rvActivitySearch.setLayoutManager(autoGridLayoutManager);
-        binding.rvActivitySearch.addOnScrollListener(onSearchListener);
+        binding.rvActivitySearch.addOnScrollListener(onSearchListListener);
         binding.srlActivitySearch.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 /* RESET ADVERTISEMENTS LIST */
-                onSearchListener.reset();
+                onSearchListListener.reset();
                 advertisementAdapter.reset();
                 advertisementRepository.deleteAll();
                 loadNextPage();
@@ -71,20 +71,20 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
 
     /* LOAD ADVERTISEMENTS SEARCH PAGE */
     private void loadNextPage() {
-        searchView.showRefresh();
+        searchView.showProgress();
 
         if(advertisementRepository.canLoadNextPage()) {
             apiManager.requestAdvertisements(this);
         } else {
             loadFromDatabase();
-            searchView.hideRefresh();
+            searchView.hideProgress();
         }
     }
 
     private void loadFromDatabase() {
         /* LOAD DATA PAGED FROM DATABASE */
         List<Advertisement> advertisements =
-                advertisementRepository.selectAdvertisementsPaged(advertisementAdapter.getItemCount());
+                advertisementRepository.selectAllAdvertisementsPaged(advertisementAdapter.getItemCount());
         advertisementAdapter.addDataSet(advertisements);
         advertisementAdapter.notifyDataSetChanged();
     }
@@ -92,19 +92,20 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
     @Override
     public void onSuccess() {
         loadFromDatabase();
-        searchView.hideRefresh();
+        searchView.hideProgress();
     }
 
     @Override
     public void onError(String message) {
-        searchView.hideRefresh();
+        loadFromDatabase();
+        searchView.hideProgress();
         searchView.displayError(message);
     }
 
     /* ENDLESS RECYCLER VIEW LISTENER */
-    private class OnSearchListener extends OnRecyclerViewListener {
+    private class OnSearchListListener extends OnRecyclerViewListener {
 
-        public OnSearchListener(GridLayoutManager gridLayoutManager) {
+        public OnSearchListListener(GridLayoutManager gridLayoutManager) {
             super(gridLayoutManager);
         }
 

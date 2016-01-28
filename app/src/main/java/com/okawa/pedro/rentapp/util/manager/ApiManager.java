@@ -1,17 +1,16 @@
 package com.okawa.pedro.rentapp.util.manager;
 
-import android.content.Context;
-
-import com.crashlytics.android.Crashlytics;
+import com.okawa.pedro.rentapp.database.AdTypeRepository;
 import com.okawa.pedro.rentapp.database.AdvertisementRepository;
-import com.okawa.pedro.rentapp.model.Response;
+import com.okawa.pedro.rentapp.di.module.DatabaseModule;
+import com.okawa.pedro.rentapp.model.ResponseAdType;
+import com.okawa.pedro.rentapp.model.ResponseSearch;
 import com.okawa.pedro.rentapp.network.ApiInterface;
 import com.okawa.pedro.rentapp.util.listener.OnApiServiceListener;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
+import java.util.Map;
 
 import greendao.Advertisement;
 import greendao.Pagination;
@@ -24,28 +23,33 @@ import rx.schedulers.Schedulers;
  */
 public class ApiManager {
 
-    private static final String API_PROPERTIES = "api.properties";
-    private static final String API_KEY = "key";
-
-    private Context context;
     private ApiInterface apiInterface;
+    private ApiQueryManager apiQueryManager;
+    private AdTypeRepository adTypeRepository;
     private AdvertisementRepository advertisementRepository;
 
-    public ApiManager(Context context,
-                      ApiInterface apiInterface,
+    public ApiManager(ApiInterface apiInterface,
+                      ApiQueryManager apiQueryManager,
+                      AdTypeRepository adTypeRepository,
                       AdvertisementRepository advertisementRepository) {
-        this.context = context;
         this.apiInterface = apiInterface;
+        this.apiQueryManager = apiQueryManager;
+        this.adTypeRepository = adTypeRepository;
         this.advertisementRepository = advertisementRepository;
     }
 
     /* SEARCH CALL */
     public void requestAdvertisements(final OnApiServiceListener listener) {
+        /* SEARCH PARAMETERS */
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put(ApiQueryManager.PARAMETER_PER_PAGE, DatabaseModule.SELECT_LIMIT);
+        parameters.put(ApiQueryManager.PARAMETER_PAGE, advertisementRepository.getCurrentPage());
+
         apiInterface
-                .search(defineAdvertisementsQuery())
+                .search(apiQueryManager.generateQuery(parameters))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response>() {
+                .subscribe(new Observer<ResponseSearch>() {
                     @Override
                     public void onCompleted() {
                         listener.onSuccess();
@@ -57,60 +61,43 @@ public class ApiManager {
                     }
 
                     @Override
-                    public void onNext(Response response) {
-                        Pagination pagination = response.getResult().getResults().getPagination();
+                    public void onNext(ResponseSearch responseSearch) {
+                        Pagination pagination = responseSearch.getResult().getResults().getPagination();
+
                         if(pagination.getCurrentPage() < pagination.getNumPages()) {
                             pagination.setCurrentPage(pagination.getCurrentPage() + 1);
                         }
-                        List<Advertisement> advertisements = response.getResult().getResults().getAdvertisements();
+
+                        List<Advertisement> advertisements = responseSearch.getResult().getResults().getAdvertisements();
 
                         advertisementRepository.updatePagination(pagination);
-                        advertisementRepository.insertOrReplaceInTx(advertisements);
+                        advertisementRepository.updateAdvertisementsInTx(advertisements);
                     }
                 });
     }
 
-    /* RETURN PARAMETERS TO MAKE SEARCH */
-    private String defineAdvertisementsQuery() {
-        /* CHECK FOR PREVIOUS PAGINATION */
-        long currentPage = advertisementRepository.getCurrentPage();
+    /* AD TYPES CALL */
+    public void requestAdTypes(final OnApiServiceListener onApiServiceListener) {
 
-        /* BUILD QUERY */
-        StringBuffer stringBuffer = new StringBuffer();
+        apiInterface
+                .adTypes(apiQueryManager.generateQuery())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseAdType>() {
+                    @Override
+                    public void onCompleted() {
+                        onApiServiceListener.onSuccess();
+                    }
 
-        stringBuffer.append("{");
-        stringBuffer.append(ApiInterface.SEARCH_API_KEY);
-        stringBuffer.append(":\"");
-        stringBuffer.append(getApiKey());
-        stringBuffer.append("\",");
-        stringBuffer.append(ApiInterface.SEARCH_QUERY);
-        stringBuffer.append(":{");
-        stringBuffer.append(ApiInterface.SEARCH_PER_PAGE);
-        stringBuffer.append(":");
-        stringBuffer.append(AdvertisementRepository.SELECT_LIMIT);
-        stringBuffer.append(",");
-        stringBuffer.append(ApiInterface.SEARCH_PAGE);
-        stringBuffer.append(":");
-        stringBuffer.append(currentPage);
-        stringBuffer.append("}}");
+                    @Override
+                    public void onError(Throwable e) {
+                        onApiServiceListener.onError(e.getMessage());
+                    }
 
-        return stringBuffer.toString();
-    }
-
-    /* RETURN API KEY STORED ON PROPERTIES FILE */
-    private String getApiKey() {
-        String apiKey = "";
-
-        Properties properties = new Properties();
-        try {
-            InputStream inputStream = context.getAssets().open(API_PROPERTIES);
-            properties.load(inputStream);
-
-            apiKey = properties.getProperty(API_KEY);
-        } catch (IOException e) {
-            Crashlytics.log(e.getMessage());
-        }
-
-        return apiKey;
+                    @Override
+                    public void onNext(ResponseAdType responseAdType) {
+                        adTypeRepository.updateAdTypeInTx(responseAdType.getResult().getAdTypes());
+                    }
+                });
     }
 }

@@ -8,6 +8,7 @@
                 <item name="android:textColor">@color/white</item>
                 <item name="android:background">@drawable/button_background</item>
                 <item name="android:lines">1</item>
+                <item name="android:textStyle">bold</item>
                 <item name="android:foreground">?android:attr/selectableItemBackground</item>
                 <item name="android:elevation">@dimen/activity_main_button_elevation</item>
         </style>

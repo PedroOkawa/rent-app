@@ -62,6 +62,10 @@ public class GreenDaoManager {
     private static final String TABLE_FEATURE_ADVERTISEMENT_ID = "advertisementId";
     private static final String TABLE_FEATURE_DESCRIPTION = "description";
 
+    /* AD TYPE */
+    private static final String TABLE_AD_TYPE = "AdType";
+    private static final String TABLE_AD_TYPE_DESCRIPTION = "description";
+
     public static void main(String[] args) throws Exception {
         Schema schema = new Schema(DATABASE_VERSION, DATABASE_PACKAGE);
         setupDatabase(schema);
@@ -79,6 +83,8 @@ public class GreenDaoManager {
         pagination.addLongProperty(TABLE_PAGINATION_CURRENT_PAGE);
         pagination.addLongProperty(TABLE_PAGINATION_FIRST_ON_PAGE);
         pagination.addLongProperty(TABLE_PAGINATION_LAST_ON_PAGE);
+
+        pagination.setHasKeepSections(true);
 
         /* ADVERTISEMENT */
         Entity advertisement = schema.addEntity(TABLE_ADVERTISEMENT);
@@ -115,6 +121,8 @@ public class GreenDaoManager {
         advertisement.addStringProperty(TABLE_ADVERTISEMENT_IMAGE_MEDIUM);
         advertisement.addStringProperty(TABLE_ADVERTISEMENT_IMAGE_LARGE);
 
+        advertisement.setHasKeepSections(true);
+
         /* FEATURE */
         Entity feature = schema.addEntity(TABLE_FEATURE);
 
@@ -122,8 +130,17 @@ public class GreenDaoManager {
         Property featureFK = feature.addLongProperty(TABLE_FEATURE_ADVERTISEMENT_ID).getProperty();
         feature.addStringProperty(TABLE_FEATURE_DESCRIPTION);
 
+        feature.setHasKeepSections(true);
+
         /* RELATIONSHIP (ADVERTISEMENT 1 x FEATURE M) */
         advertisement.addToMany(feature, featureFK);
+
+        /* AD TYPE */
+        Entity adType = schema.addEntity(TABLE_AD_TYPE);
+
+        adType.addStringProperty(TABLE_AD_TYPE_DESCRIPTION).primaryKey();
+
+        adType.setHasKeepSections(true);
     }
 
 }

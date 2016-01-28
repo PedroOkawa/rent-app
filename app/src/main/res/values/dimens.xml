@@ -3,13 +3,15 @@
     <!-- ACTIVITY MAIN -->
     <dimen name="activity_main_button_elevation">8dp</dimen>
 
+    <!-- ADAPTER AD TYPE -->
+    <dimen name="adapter_ad_type_description_padding">8dp</dimen>
+
     <!-- ADAPTER ADVERTISEMENT -->
     <dimen name="adapter_advertisement_card_height">300dp</dimen>
     <dimen name="adapter_advertisement_card_margin">8dp</dimen>
     <dimen name="adapter_advertisement_card_elevation">8dp</dimen>
 
     <!-- VIEW ADVERTISEMENT INFO -->
-    <dimen name="view_advertisement_info_address_margin">8dp</dimen>
-    <dimen name="view_advertisement_info_address_text_size">8dp</dimen>
+    <dimen name="view_advertisement_info_address_padding">8dp</dimen>
 
 </resources>

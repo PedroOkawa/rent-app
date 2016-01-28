@@ -3,6 +3,7 @@ package com.okawa.pedro.rentapp.di.module;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.okawa.pedro.rentapp.RentApp;
+import com.okawa.pedro.rentapp.database.AdTypeRepository;
 import com.okawa.pedro.rentapp.database.AdvertisementRepository;
 
 import javax.inject.Singleton;
@@ -18,6 +19,7 @@ import greendao.DaoSession;
 @Module
 public class DatabaseModule {
 
+    public static final int SELECT_LIMIT = 20;
     private static final String DATABASE_NAME = "RENT_DB";
 
     @Singleton
@@ -27,6 +29,12 @@ public class DatabaseModule {
         SQLiteDatabase db = helper.getWritableDatabase();
         DaoMaster daoMaster = new DaoMaster(db);
         return daoMaster.newSession();
+    }
+
+    @Singleton
+    @Provides
+    public AdTypeRepository providesAdTypeRepository(DaoSession daoSession) {
+        return new AdTypeRepository(daoSession);
     }
 
     @Singleton

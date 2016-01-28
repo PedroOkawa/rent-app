@@ -5,6 +5,7 @@ package com.okawa.pedro.rentapp.ui.main;
  */
 public interface MainView {
 
-
+    void hideProgress();
+    void displayError(String message);
 
 }

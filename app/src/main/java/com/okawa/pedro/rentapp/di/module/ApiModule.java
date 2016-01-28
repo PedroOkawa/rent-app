@@ -1,9 +1,16 @@
 package com.okawa.pedro.rentapp.di.module;
 
+import com.crashlytics.android.Crashlytics;
 import com.okawa.pedro.rentapp.RentApp;
+import com.okawa.pedro.rentapp.database.AdTypeRepository;
 import com.okawa.pedro.rentapp.database.AdvertisementRepository;
 import com.okawa.pedro.rentapp.network.ApiInterface;
 import com.okawa.pedro.rentapp.util.manager.ApiManager;
+import com.okawa.pedro.rentapp.util.manager.ApiQueryManager;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 import javax.inject.Singleton;
 
@@ -25,6 +32,9 @@ public class ApiModule {
     private static final String TYPE = "json/";
     private static final String BASE_URL = URL.concat(VERSION).concat(TYPE);
 
+    private static final String API_PROPERTIES = "api.properties";
+    private static final String API_KEY = "key";
+
     @Singleton
     @Provides
     public ApiInterface providesApiInterface() {
@@ -40,10 +50,35 @@ public class ApiModule {
 
     @Singleton
     @Provides
-    public ApiManager providesApiManager(RentApp rentApp,
-                                         ApiInterface apiInterface,
+    public String providesApiKey(RentApp rentApp) {
+        String apiKey = "";
+
+        Properties properties = new Properties();
+        try {
+            InputStream inputStream = rentApp.getAssets().open(API_PROPERTIES);
+            properties.load(inputStream);
+
+            apiKey = properties.getProperty(API_KEY);
+        } catch (IOException e) {
+            Crashlytics.log(e.getMessage());
+        }
+
+        return apiKey;
+    }
+
+    @Singleton
+    @Provides
+    public ApiQueryManager providesQueryManager(String apiKey) {
+        return new ApiQueryManager(apiKey);
+    }
+
+    @Singleton
+    @Provides
+    public ApiManager providesApiManager(ApiInterface apiInterface,
+                                         ApiQueryManager apiQueryManager,
+                                         AdTypeRepository adTypeRepository,
                                          AdvertisementRepository advertisementRepository) {
-        return new ApiManager(rentApp, apiInterface, advertisementRepository);
+        return new ApiManager(apiInterface, apiQueryManager, adTypeRepository, advertisementRepository);
     }
 
 }

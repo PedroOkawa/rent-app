@@ -46,12 +46,12 @@ public class SearchActivity extends BaseActivity implements SearchView {
     }
 
     @Override
-    public void showRefresh() {
+    public void showProgress() {
         binding.srlActivitySearch.setRefreshing(true);
     }
 
     @Override
-    public void hideRefresh() {
+    public void hideProgress() {
         binding.srlActivitySearch.setRefreshing(false);
         binding.setLoading(false);
     }

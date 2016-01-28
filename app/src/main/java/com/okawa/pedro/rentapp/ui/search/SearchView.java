@@ -5,8 +5,8 @@ package com.okawa.pedro.rentapp.ui.search;
  */
 public interface SearchView {
 
-    void showRefresh();
-    void hideRefresh();
+    void showProgress();
+    void hideProgress();
     void displayError(String message);
 
 }

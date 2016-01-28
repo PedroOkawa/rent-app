@@ -7,7 +7,7 @@
             type="greendao.Advertisement"/>
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rlViewAdvertisementInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,8 +17,8 @@
             style="@style/Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/view_advertisement_info_address_margin"
+            android:padding="@dimen/view_advertisement_info_address_padding"
             android:text="@{advertisement.fullAddress}"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 </layout>

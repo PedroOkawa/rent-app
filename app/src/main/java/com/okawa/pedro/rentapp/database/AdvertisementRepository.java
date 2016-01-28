@@ -1,6 +1,6 @@
 package com.okawa.pedro.rentapp.database;
 
-import android.util.Log;
+import com.okawa.pedro.rentapp.di.module.DatabaseModule;
 
 import java.util.Collection;
 import java.util.List;
@@ -14,8 +14,6 @@ import greendao.Pagination;
  */
 public class AdvertisementRepository {
 
-    public static final int SELECT_LIMIT = 20;
-
     private DaoSession daoSession;
 
     public AdvertisementRepository(DaoSession daoSession) {
@@ -24,12 +22,12 @@ public class AdvertisementRepository {
 
     /* SEARCH */
 
-    public void insertOrReplaceInTx(Collection<Advertisement> advertisements) {
+    public void updateAdvertisementsInTx(Collection<Advertisement> advertisements) {
         daoSession.getAdvertisementDao().insertOrReplaceInTx(advertisements);
     }
 
-    public List<Advertisement> selectAdvertisementsPaged(int offset) {
-        return daoSession.getAdvertisementDao().queryBuilder().limit(SELECT_LIMIT).offset(offset).list();
+    public List<Advertisement> selectAllAdvertisementsPaged(int offset) {
+        return daoSession.getAdvertisementDao().queryBuilder().limit(DatabaseModule.SELECT_LIMIT).offset(offset).list();
     }
 
     public long count() {
@@ -43,7 +41,7 @@ public class AdvertisementRepository {
         daoSession.getPaginationDao().insertOrReplace(pagination);
     }
 
-    public Pagination getPagination() {
+    public Pagination selectPagination() {
         return daoSession.getPaginationDao().load((long) 0);
     }
 
@@ -53,7 +51,7 @@ public class AdvertisementRepository {
 
     public boolean canLoadNextPage() {
         if (paginationExists()) {
-            Pagination pagination = getPagination();
+            Pagination pagination = selectPagination();
             if (count() < (pagination.getCurrentPage() * pagination.getPerPage())) {
                 return true;
             }
@@ -65,7 +63,7 @@ public class AdvertisementRepository {
 
     public long getCurrentPage() {
         if(paginationExists()) {
-            Pagination pagination = getPagination();
+            Pagination pagination = selectPagination();
             return pagination.getCurrentPage();
         }
         return 1;

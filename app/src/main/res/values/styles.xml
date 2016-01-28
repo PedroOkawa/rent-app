@@ -2,7 +2,6 @@
 
     <!-- MAIN THEME -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
@@ -23,6 +22,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/button_background</item>
         <item name="android:lines">1</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
     </style>
 
