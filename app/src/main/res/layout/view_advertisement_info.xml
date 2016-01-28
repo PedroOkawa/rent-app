@@ -17,6 +17,7 @@
             style="@style/Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:padding="@dimen/view_advertisement_info_address_padding"
             android:text="@{advertisement.fullAddress}"/>
 

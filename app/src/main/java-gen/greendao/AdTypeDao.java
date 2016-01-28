@@ -23,7 +23,9 @@ public class AdTypeDao extends AbstractDao<AdType, String> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property Description = new Property(0, String.class, "description", true, "DESCRIPTION");
+        public final static Property Name = new Property(0, String.class, "name", true, "NAME");
+        public final static Property DescriptionShort = new Property(1, String.class, "descriptionShort", false, "DESCRIPTION_SHORT");
+        public final static Property Description = new Property(2, String.class, "description", false, "DESCRIPTION");
     };
 
 
@@ -39,7 +41,9 @@ public class AdTypeDao extends AbstractDao<AdType, String> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"AD_TYPE\" (" + //
-                "\"DESCRIPTION\" TEXT PRIMARY KEY NOT NULL );"); // 0: description
+                "\"NAME\" TEXT PRIMARY KEY NOT NULL ," + // 0: name
+                "\"DESCRIPTION_SHORT\" TEXT," + // 1: descriptionShort
+                "\"DESCRIPTION\" TEXT);"); // 2: description
     }
 
     /** Drops the underlying database table. */
@@ -53,9 +57,19 @@ public class AdTypeDao extends AbstractDao<AdType, String> {
     protected void bindValues(SQLiteStatement stmt, AdType entity) {
         stmt.clearBindings();
  
+        String name = entity.getName();
+        if (name != null) {
+            stmt.bindString(1, name);
+        }
+ 
+        String descriptionShort = entity.getDescriptionShort();
+        if (descriptionShort != null) {
+            stmt.bindString(2, descriptionShort);
+        }
+ 
         String description = entity.getDescription();
         if (description != null) {
-            stmt.bindString(1, description);
+            stmt.bindString(3, description);
         }
     }
 
@@ -69,7 +83,9 @@ public class AdTypeDao extends AbstractDao<AdType, String> {
     @Override
     public AdType readEntity(Cursor cursor, int offset) {
         AdType entity = new AdType( //
-            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0) // description
+            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // name
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // descriptionShort
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // description
         );
         return entity;
     }
@@ -77,20 +93,22 @@ public class AdTypeDao extends AbstractDao<AdType, String> {
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, AdType entity, int offset) {
-        entity.setDescription(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
+        entity.setName(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
+        entity.setDescriptionShort(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setDescription(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
      }
     
     /** @inheritdoc */
     @Override
     protected String updateKeyAfterInsert(AdType entity, long rowId) {
-        return entity.getDescription();
+        return entity.getName();
     }
     
     /** @inheritdoc */
     @Override
     public String getKey(AdType entity) {
         if(entity != null) {
-            return entity.getDescription();
+            return entity.getName();
         } else {
             return null;
         }

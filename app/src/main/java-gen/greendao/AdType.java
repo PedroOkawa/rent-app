@@ -13,16 +13,40 @@ public class AdType {
 
     // KEEP FIELDS - put your custom fields here
 
+    private String name;
+    @SerializedName("desc_short")
+    private String descriptionShort;
     @SerializedName("desc")
     private String description;
-
     // KEEP FIELDS END
 
     public AdType() {
     }
 
-    public AdType(String description) {
+    public AdType(String name) {
+        this.name = name;
+    }
+
+    public AdType(String name, String descriptionShort, String description) {
+        this.name = name;
+        this.descriptionShort = descriptionShort;
         this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescriptionShort() {
+        return descriptionShort;
+    }
+
+    public void setDescriptionShort(String descriptionShort) {
+        this.descriptionShort = descriptionShort;
     }
 
     public String getDescription() {

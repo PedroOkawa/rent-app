@@ -1,7 +1,7 @@
 package com.okawa.pedro.rentapp.ui.main;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.okawa.pedro.rentapp.R;

@@ -64,7 +64,9 @@ public class GreenDaoManager {
 
     /* AD TYPE */
     private static final String TABLE_AD_TYPE = "AdType";
+    private static final String TABLE_AD_TYPE_NAME = "name";
     private static final String TABLE_AD_TYPE_DESCRIPTION = "description";
+    private static final String TABLE_AD_TYPE_DESCRIPTION_SHORT = "descriptionShort";
 
     public static void main(String[] args) throws Exception {
         Schema schema = new Schema(DATABASE_VERSION, DATABASE_PACKAGE);
@@ -138,7 +140,9 @@ public class GreenDaoManager {
         /* AD TYPE */
         Entity adType = schema.addEntity(TABLE_AD_TYPE);
 
-        adType.addStringProperty(TABLE_AD_TYPE_DESCRIPTION).primaryKey();
+        adType.addStringProperty(TABLE_AD_TYPE_NAME).primaryKey();
+        adType.addStringProperty(TABLE_AD_TYPE_DESCRIPTION_SHORT);
+        adType.addStringProperty(TABLE_AD_TYPE_DESCRIPTION);
 
         adType.setHasKeepSections(true);
     }

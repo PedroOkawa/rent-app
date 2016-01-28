@@ -6,9 +6,11 @@
     <!-- ADAPTER AD TYPE -->
     <dimen name="adapter_ad_type_description_padding">8dp</dimen>
 
+    <!-- ACTIVITY FILTER -->
+    <dimen name="activity_filter_placeholder_padding">76dp</dimen>
+
     <!-- ADAPTER ADVERTISEMENT -->
     <dimen name="adapter_advertisement_card_height">300dp</dimen>
-    <dimen name="adapter_advertisement_card_margin">8dp</dimen>
     <dimen name="adapter_advertisement_card_elevation">8dp</dimen>
 
     <!-- VIEW ADVERTISEMENT INFO -->

@@ -3,6 +3,7 @@ package com.okawa.pedro.rentapp.presenter.main;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.okawa.pedro.rentapp.R;
 import com.okawa.pedro.rentapp.database.AdTypeRepository;
 import com.okawa.pedro.rentapp.databinding.ActivityMainBinding;
 import com.okawa.pedro.rentapp.ui.main.MainView;

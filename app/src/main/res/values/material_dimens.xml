@@ -13,5 +13,8 @@
     <dimen name="text_size_body_one">14sp</dimen>
     <dimen name="text_size_caption">12sp</dimen>
     <dimen name="text_size_button">14sp</dimen>
+
+    <!-- BUTTON -->
+    <dimen name="button_padding">16dp</dimen>
     
 </resources>

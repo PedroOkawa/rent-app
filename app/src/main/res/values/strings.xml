@@ -2,6 +2,9 @@
     <!-- APP NAME -->
     <string name="app_name">Rent App</string>
 
-    <!-- ACTIVITY MAIN -->
-    <string name="activity_main_button_text">GO</string>
+    <!-- ACTIVITY FILTER -->
+    <string name="activity_filter_placeholder">INCLUDE\nFILTERS\nHERE</string>
+    <string name="activity_filter_button_search_text">Search (Go)</string>
+    <string name="activity_filter_message_error">There's no implemented search for this ad type yet\nCOMING SOON</string>
+
 </resources>

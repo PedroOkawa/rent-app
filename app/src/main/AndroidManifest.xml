@@ -21,8 +21,16 @@
             </intent-filter>
         </activity>
 
+        <!-- FILTER ACTIVITY -->
+        <activity android:name=".ui.filter.FilterActivity"
+            android:configChanges="orientation|screenSize"/>
+
         <!-- SEARCH ACTIVITY -->
         <activity android:name=".ui.search.SearchActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!-- DETAILS ACTIVITY -->
+        <activity android:name=".ui.details.DetailsActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!-- CRASHLYTICS -->

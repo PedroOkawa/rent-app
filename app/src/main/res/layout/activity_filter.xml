@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="touchListener"
+            type="com.okawa.pedro.rentapp.util.listener.OnViewTouchListener"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/Display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/activity_filter_placeholder_padding"
+                    android:text="@string/activity_filter_placeholder"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <TextView
+            style="@style/Button"
+            android:id="@+id/tvActivityFilterSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:text="@string/activity_filter_button_search_text"
+            android:onClick="@{touchListener.onViewTouched}"/>
+
+    </RelativeLayout>
+
+</layout>

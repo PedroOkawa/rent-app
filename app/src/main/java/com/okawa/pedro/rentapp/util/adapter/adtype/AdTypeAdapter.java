@@ -1,6 +1,8 @@
 package com.okawa.pedro.rentapp.util.adapter.adtype;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.View;
 
 import com.okawa.pedro.rentapp.R;
 import com.okawa.pedro.rentapp.databinding.AdapterAdTypeBinding;
@@ -32,7 +34,7 @@ public class AdTypeAdapter extends BindingAdapter<AdType, AdapterAdTypeBinding> 
     }
 
     @Override
-    protected void doOnBindViewHolder(BindingViewHolder holder, AdapterAdTypeBinding binding, int position, AdType item) {
+    protected void doOnBindViewHolder(BindingViewHolder holder, AdapterAdTypeBinding binding, int position, final AdType item) {
         binding.setAdType(item);
 
         Picasso.with(context)
@@ -41,5 +43,12 @@ public class AdTypeAdapter extends BindingAdapter<AdType, AdapterAdTypeBinding> 
                 .centerCrop()
                 .fit()
                 .into(binding.ivAdapterAdType);
+
+        binding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callManager.filter(context, item.getDescriptionShort());
+            }
+        });
     }
 }

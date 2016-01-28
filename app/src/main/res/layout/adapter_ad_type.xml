@@ -38,6 +38,8 @@
                     style="@style/Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true"
                     android:padding="@dimen/adapter_ad_type_description_padding"
                     android:text="@{adType.description}"/>
 

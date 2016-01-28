@@ -3,19 +3,19 @@
     <item
         android:state_focused="true"
         android:state_pressed="false"
-        android:drawable="@color/color_accent"
-        android:color="@color/color_accent" />
+        android:drawable="@color/color_primary"
+        android:color="@color/color_primary"/>
     <item
         android:state_focused="true"
         android:state_pressed="true"
-        android:drawable="@color/color_primary"
-        android:color="@color/color_primary" />
+        android:drawable="@color/color_accent"
+        android:color="@color/color_accent"/>
     <item
         android:state_focused="false"
         android:state_pressed="true"
-        android:drawable="@color/color_primary"
-        android:color="@color/color_primary" />
-    <item
         android:drawable="@color/color_accent"
-        android:color="@color/color_accent" />
+        android:color="@color/color_accent"/>
+    <item
+        android:drawable="@color/color_primary"
+        android:color="@color/color_primary"/>
 </selector>

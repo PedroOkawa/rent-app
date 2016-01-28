@@ -12,7 +12,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="@dimen/adapter_advertisement_card_height"
-        android:layout_margin="@dimen/adapter_advertisement_card_margin"
         android:elevation="@dimen/adapter_advertisement_card_elevation"
         android:clipToPadding="false"
         android:outlineProvider="bounds"
