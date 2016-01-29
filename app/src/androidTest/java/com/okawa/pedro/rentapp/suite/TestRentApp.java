@@ -1,4 +1,4 @@
-package com.okawa.pedro.rentapp.common;
+package com.okawa.pedro.rentapp.suite;
 
 import com.okawa.pedro.rentapp.RentApp;
 import com.okawa.pedro.rentapp.di.component.DaggerTestRentAppComponent;

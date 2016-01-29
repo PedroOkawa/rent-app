@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.support.test.runner.AndroidJUnitRunner;
 
-import com.okawa.pedro.rentapp.common.TestRentApp;
+import com.okawa.pedro.rentapp.suite.TestRentApp;
 
 /**
  * Created by pokawa on 29/01/16.
