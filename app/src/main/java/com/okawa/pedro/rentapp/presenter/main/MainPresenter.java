@@ -10,5 +10,6 @@ import com.okawa.pedro.rentapp.databinding.ActivityMainBinding;
 public interface MainPresenter {
 
     void initialize(Context context, ActivityMainBinding binding);
+    void openGithub();
 
 }

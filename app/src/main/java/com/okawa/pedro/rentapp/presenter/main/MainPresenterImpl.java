@@ -29,6 +29,7 @@ public class MainPresenterImpl implements MainPresenter, OnApiServiceListener {
     private CallManager callManager;
     private AdTypeRepository adTypeRepository;
 
+    private Context context;
     private ActivityMainBinding binding;
 
     private AdTypeAdapter adTypeAdapter;
@@ -42,6 +43,9 @@ public class MainPresenterImpl implements MainPresenter, OnApiServiceListener {
 
     @Override
     public void initialize(Context context, ActivityMainBinding binding) {
+        /* STORES CONTEXT */
+        this.context = context;
+
         /* STORES BINDING */
         this.binding = binding;
 
@@ -59,6 +63,11 @@ public class MainPresenterImpl implements MainPresenter, OnApiServiceListener {
 
         /* REQUEST DATA FROM API */
         requestData();
+    }
+
+    @Override
+    public void openGithub() {
+        callManager.github(context);
     }
 
     private void requestData() {

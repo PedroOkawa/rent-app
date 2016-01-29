@@ -5,6 +5,7 @@ import com.okawa.pedro.rentapp.di.scope.Activity;
 import com.okawa.pedro.rentapp.presenter.details.DetailsPresenter;
 import com.okawa.pedro.rentapp.presenter.details.DetailsPresenterImpl;
 import com.okawa.pedro.rentapp.ui.details.DetailsView;
+import com.okawa.pedro.rentapp.util.manager.CallManager;
 
 import dagger.Module;
 import dagger.Provides;
@@ -30,8 +31,9 @@ public class DetailsModule {
     @Activity
     @Provides
     public DetailsPresenter providesDetailsPresenter(DetailsView detailsView,
+                                                     CallManager callManager,
                                                      AdvertisementRepository advertisementRepository) {
-        return new DetailsPresenterImpl(detailsView, advertisementRepository);
+        return new DetailsPresenterImpl(detailsView, callManager, advertisementRepository);
     }
 
 }

@@ -219,9 +219,4 @@ public class FilterActivityTest {
         onView(withId(R.id.tvActivityFilterSearch)).perform(ViewActions.click());
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
-
-    @After
-    public void dispose() {
-        activityRule.getActivity().finish();
-    }
 }

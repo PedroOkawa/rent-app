@@ -3,6 +3,9 @@
     <!-- APP NAME -->
     <string name="app_name">Rent App</string>
 
+    <!-- MENU -->
+    <string name="menu_github">Github</string>
+
     <!-- ACTIVITY FILTER -->
     <string name="activity_filter_placeholder">INCLUIR\nFILTROS\nAQUI</string>
     <string name="activity_filter_button_search_text">Pesquisar (Ir)</string>

@@ -67,9 +67,4 @@ public class MainActivityTest {
             sleep(INTERACTION_DELAY);
         }
     }
-
-    @After
-    public void dispose() {
-        activityRule.getActivity().finish();
-    }
 }

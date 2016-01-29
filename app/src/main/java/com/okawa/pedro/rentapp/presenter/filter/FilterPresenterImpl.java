@@ -53,6 +53,11 @@ public class FilterPresenterImpl implements FilterPresenter, OnViewTouchListener
     }
 
     @Override
+    public void opentGithub() {
+        callManager.github(context);
+    }
+
+    @Override
     public void onViewTouched(View view) {
         if(view.getId() == R.id.tvActivityFilterSearch) {
 

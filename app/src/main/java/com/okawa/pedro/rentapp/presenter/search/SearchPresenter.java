@@ -14,5 +14,6 @@ public interface SearchPresenter {
     void initialize(Context context, ActivitySearchBinding binding);
     void restoreData(Intent intent);
     void onOrientationChanged(int orientation);
+    void openGithub();
 
 }

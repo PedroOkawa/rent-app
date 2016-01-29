@@ -1,6 +1,9 @@
 package com.okawa.pedro.rentapp.ui.main;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.okawa.pedro.rentapp.R;
@@ -59,5 +62,21 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     public void displayError(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_github, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.menu_github) {
+            mainPresenter.openGithub();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

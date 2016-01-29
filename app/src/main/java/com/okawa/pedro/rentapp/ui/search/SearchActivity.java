@@ -2,6 +2,8 @@ package com.okawa.pedro.rentapp.ui.search;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -83,9 +85,21 @@ public class SearchActivity extends BaseActivity implements SearchView {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_github, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home) {
-            onBackPressed();
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            case R.id.menu_github:
+                searchPresenter.openGithub();
+                break;
         }
 
         return super.onOptionsItemSelected(item);

@@ -33,6 +33,7 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
     private CallManager callManager;
     private AdvertisementRepository advertisementRepository;
 
+    private Context context;
     private AdvertisementAdapter advertisementAdapter;
     private AutoGridLayoutManager autoGridLayoutManager;
     private OnSearchListListener onSearchListListener;
@@ -49,6 +50,9 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
 
     @Override
     public void initialize(Context context, ActivitySearchBinding binding) {
+        /* STORES CONTEXT */
+        this.context = context;
+
         /* SHOW PROGRESS BAR */
         binding.setLoading(true);
 
@@ -84,6 +88,11 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
     @Override
     public void onOrientationChanged(int orientation) {
         autoGridLayoutManager.changeColumnsNumber(orientation);
+    }
+
+    @Override
+    public void openGithub() {
+        callManager.github(context);
     }
 
     /* LOAD ADVERTISEMENTS SEARCH PAGE */

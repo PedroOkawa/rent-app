@@ -12,5 +12,6 @@ public interface FilterPresenter {
 
     void initialize(Context context, ActivityFilterBinding binding);
     void restoreData(Intent intent);
+    void opentGithub();
 
 }

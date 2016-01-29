@@ -2,9 +2,15 @@
     <!-- APP NAME -->
     <string name="app_name">Rent App</string>
 
+    <!-- MENU -->
+    <string name="menu_github">Github</string>
+
     <!-- ACTIVITY FILTER -->
     <string name="activity_filter_placeholder">INCLUDE\nFILTERS\nHERE</string>
     <string name="activity_filter_button_search_text">Search (Go)</string>
     <string name="activity_filter_message_error">Call not implemented yet\nCOMING SOON</string>
+
+    <!-- GITHUB -->
+    <string name="github_uri">https://github.com/PedroOkawa/rent-app</string>
 
 </resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:rent="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/menu_github"
+        android:title="@string/menu_github"
+        android:icon="@mipmap/ic_github"
+        rent:showAsAction="always"/>
+
+</menu>

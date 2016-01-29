@@ -24,8 +24,10 @@ import greendao.Advertisement;
 public class DetailsPresenterImpl implements DetailsPresenter {
 
     private DetailsView detailsView;
+    private CallManager callManager;
     private AdvertisementRepository advertisementRepository;
 
+    private Context context;
     private ActivityDetailsBinding binding;
 
     private Advertisement advertisement;
@@ -35,8 +37,11 @@ public class DetailsPresenterImpl implements DetailsPresenter {
     private int toolbarColor;
     private int titleColor;
 
-    public DetailsPresenterImpl(DetailsView detailsView, AdvertisementRepository advertisementRepository) {
+    public DetailsPresenterImpl(DetailsView detailsView,
+                                CallManager callManager,
+                                AdvertisementRepository advertisementRepository) {
         this.detailsView = detailsView;
+        this.callManager = callManager;
         this.advertisementRepository = advertisementRepository;
     }
 
@@ -50,6 +55,9 @@ public class DetailsPresenterImpl implements DetailsPresenter {
 
     @Override
     public void initialize(Context context, ActivityDetailsBinding binding) {
+        /* STORES CONTEXT */
+        this.context = context;
+
         /* STORES BINDING */
         this.binding = binding;
 
@@ -80,6 +88,11 @@ public class DetailsPresenterImpl implements DetailsPresenter {
             /* MAKES STATUS BAR TRANSPARENT */
             detailsView.initializeStatusBar();
         }
+    }
+
+    @Override
+    public void openGithub() {
+        callManager.github(context);
     }
 
     /* TOOLBAR ANIMATIONS */

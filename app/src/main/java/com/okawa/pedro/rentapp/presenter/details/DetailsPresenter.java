@@ -12,5 +12,6 @@ public interface DetailsPresenter {
 
     void restoreData(Intent intent);
     void initialize(Context context, ActivityDetailsBinding binding);
+    void openGithub();
 
 }
