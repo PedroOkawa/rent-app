@@ -25,6 +25,7 @@ import org.junit.runner.RunWith;
 import javax.inject.Inject;
 
 import static android.os.SystemClock.sleep;
+import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -50,6 +51,7 @@ public class MainActivityTest {
 
     @Before
     public void setup() {
+        closeSoftKeyboard();
         Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
         RentApp app = (RentApp) instrumentation.getTargetContext().getApplicationContext();
         TestRentAppComponent component = (TestRentAppComponent) app.getComponent();

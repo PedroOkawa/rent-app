@@ -26,6 +26,7 @@ import javax.inject.Inject;
 import greendao.AdType;
 
 import static android.os.SystemClock.sleep;
+import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -51,6 +52,7 @@ public class FilterActivityTest {
 
     @Before
     public void setup() {
+        closeSoftKeyboard();
         Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
         RentApp app = (RentApp) instrumentation.getTargetContext().getApplicationContext();
         TestRentAppComponent component = (TestRentAppComponent) app.getComponent();
