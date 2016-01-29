@@ -22,29 +22,29 @@ public class AutoGridLayoutManagerTest {
     private static final int COLUMNS_NUMBER_PORTRAIT = 1;
     private static final int COLUMNS_NUMBER_LANDSCAPE = 2;
 
-    @Mock Context mContext;
-    @Mock Resources mResources;
-    @Mock Configuration mConfiguration;
-    private AutoGridLayoutManager mAutoGridLayoutManager;
+    @Mock Context context;
+    @Mock Resources resources;
+    @Mock Configuration configuration;
+    private AutoGridLayoutManager autoGridLayoutManager;
 
     @Before
     public void setup() {
         initMocks(this);
-        mConfiguration.orientation = Configuration.ORIENTATION_PORTRAIT;
-        when(mResources.getConfiguration()).thenReturn(mConfiguration);
-        when(mContext.getResources()).thenReturn(mResources);
-        mAutoGridLayoutManager = new AutoGridLayoutManager(mContext);
+        configuration.orientation = Configuration.ORIENTATION_PORTRAIT;
+        when(resources.getConfiguration()).thenReturn(configuration);
+        when(context.getResources()).thenReturn(resources);
+        autoGridLayoutManager = new AutoGridLayoutManager(context);
     }
 
     @Test
     public void testColumnNumberPortrait() {
-        mAutoGridLayoutManager.changeColumnsNumber(Configuration.ORIENTATION_PORTRAIT);
-        assertEquals(mAutoGridLayoutManager.getSpanCount(), COLUMNS_NUMBER_PORTRAIT);
+        autoGridLayoutManager.changeColumnsNumber(Configuration.ORIENTATION_PORTRAIT);
+        assertEquals(autoGridLayoutManager.getSpanCount(), COLUMNS_NUMBER_PORTRAIT);
     }
 
     @Test
     public void testColumnNumberLandscape() {
-        mAutoGridLayoutManager.changeColumnsNumber(Configuration.ORIENTATION_LANDSCAPE);
-        assertEquals(mAutoGridLayoutManager.getSpanCount(), COLUMNS_NUMBER_LANDSCAPE);
+        autoGridLayoutManager.changeColumnsNumber(Configuration.ORIENTATION_LANDSCAPE);
+        assertEquals(autoGridLayoutManager.getSpanCount(), COLUMNS_NUMBER_LANDSCAPE);
     }
 }

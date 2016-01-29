@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 
 import com.okawa.pedro.rentapp.database.AdvertisementRepository;
 import com.okawa.pedro.rentapp.databinding.ActivitySearchBinding;
+import com.okawa.pedro.rentapp.model.bus.ConnectionEvent;
 import com.okawa.pedro.rentapp.ui.search.SearchView;
 import com.okawa.pedro.rentapp.util.adapter.advertisement.AdvertisementAdapter;
 import com.okawa.pedro.rentapp.util.listener.OnApiServiceListener;
@@ -18,6 +19,8 @@ import com.okawa.pedro.rentapp.util.manager.CallManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
 import greendao.Advertisement;
 
 /**
@@ -67,6 +70,9 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
                 loadNextPage();
             }
         });
+
+        /* EVENT BUS */
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -110,6 +116,13 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
         loadFromDatabase();
         searchView.hideProgress();
         searchView.displayError(message);
+    }
+
+    /* ON ESTABLISH CONNECTION */
+    @Subscribe
+    public void onEvent(ConnectionEvent connectionEvent) {
+        /* REQUEST DATA FROM API */
+        loadNextPage();
     }
 
     /* ENDLESS RECYCLER VIEW LISTENER */

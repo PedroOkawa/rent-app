@@ -80,7 +80,6 @@ public class ApiManager {
 
     /* AD TYPES CALL */
     public void requestAdTypes(final OnApiServiceListener onApiServiceListener) {
-
         apiInterface
                 .adTypes(apiQueryManager.generateQuery())
                 .subscribeOn(Schedulers.newThread())
