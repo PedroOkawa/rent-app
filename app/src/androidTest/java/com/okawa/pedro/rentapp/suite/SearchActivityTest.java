@@ -67,6 +67,7 @@ public class SearchActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_SHORT_TERM);
 
         activityRule.launchActivity(callSearchActivity(adType));
+        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
@@ -76,6 +77,7 @@ public class SearchActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_SHARING);
 
         activityRule.launchActivity(callSearchActivity(adType));
+        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
@@ -85,6 +87,7 @@ public class SearchActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_SALE);
 
         activityRule.launchActivity(callSearchActivity(adType));
+        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
@@ -94,6 +97,7 @@ public class SearchActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_RENTAL);
 
         activityRule.launchActivity(callSearchActivity(adType));
+        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
@@ -103,6 +107,7 @@ public class SearchActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_PARKING);
 
         activityRule.launchActivity(callSearchActivity(adType));
+        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
@@ -112,6 +117,7 @@ public class SearchActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_NEW_DEVELOPMENT);
 
         activityRule.launchActivity(callSearchActivity(adType));
+        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
@@ -121,6 +127,7 @@ public class SearchActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_COMMERCIAL);
 
         activityRule.launchActivity(callSearchActivity(adType));
+        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
@@ -201,4 +208,9 @@ public class SearchActivityTest {
 //            sleep(INTERACTION_DELAY);
 //        }
 //    }
+
+    @After
+    public void dispose() {
+        activityRule.getActivity().finish();
+    }
 }

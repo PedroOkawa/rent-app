@@ -47,7 +47,7 @@ public class MainActivityTest {
     AdTypeRepository adTypeRepository;
 
     @Rule
-    public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class, true, false);
+    public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Before
     public void setup() {
@@ -60,8 +60,6 @@ public class MainActivityTest {
 
     @Test
     public void validateAdTypeList() {
-        activityRule.launchActivity(new Intent());
-
         for(int i = 0; i < adTypeRepository.count(); i++) {
             checkRecyclerItem(i, R.id.rvActivityMain);
             sleep(INTERACTION_DELAY);
