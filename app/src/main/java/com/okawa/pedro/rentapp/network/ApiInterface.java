@@ -1,7 +1,7 @@
 package com.okawa.pedro.rentapp.network;
 
-import com.okawa.pedro.rentapp.model.ResponseAdType;
-import com.okawa.pedro.rentapp.model.ResponseSearch;
+import com.okawa.pedro.rentapp.model.response.ResponseAdType;
+import com.okawa.pedro.rentapp.model.response.ResponseSearch;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;

@@ -3,9 +3,9 @@ package com.okawa.pedro.rentapp.presenter.main;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 
-import com.okawa.pedro.rentapp.R;
 import com.okawa.pedro.rentapp.database.AdTypeRepository;
 import com.okawa.pedro.rentapp.databinding.ActivityMainBinding;
+import com.okawa.pedro.rentapp.model.bus.ConnectionEvent;
 import com.okawa.pedro.rentapp.ui.main.MainView;
 import com.okawa.pedro.rentapp.util.adapter.adtype.AdTypeAdapter;
 import com.okawa.pedro.rentapp.util.listener.OnApiServiceListener;
@@ -15,6 +15,8 @@ import com.okawa.pedro.rentapp.util.manager.CallManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
 import greendao.AdType;
 
 /**
@@ -27,6 +29,8 @@ public class MainPresenterImpl implements MainPresenter, OnApiServiceListener {
     private CallManager callManager;
     private AdTypeRepository adTypeRepository;
 
+    private ActivityMainBinding binding;
+
     private AdTypeAdapter adTypeAdapter;
 
     public MainPresenterImpl(MainView mainView, ApiManager apiManager, CallManager callManager, AdTypeRepository adTypeRepository) {
@@ -38,8 +42,8 @@ public class MainPresenterImpl implements MainPresenter, OnApiServiceListener {
 
     @Override
     public void initialize(Context context, ActivityMainBinding binding) {
-        /* SHOW PROGRESS BAR */
-        binding.setLoading(true);
+        /* STORES BINDING */
+        this.binding = binding;
 
         /* INITIALIZE TOOLBAR */
         mainView.initializeToolbar();
@@ -49,6 +53,17 @@ public class MainPresenterImpl implements MainPresenter, OnApiServiceListener {
 
         binding.rvActivityMain.setAdapter(adTypeAdapter);
         binding.rvActivityMain.setLayoutManager(new LinearLayoutManager(context));
+
+        /* EVENT BUS */
+        EventBus.getDefault().register(this);
+
+        /* REQUEST DATA FROM API */
+        requestData();
+    }
+
+    private void requestData() {
+        /* SHOW PROGRESS BAR */
+        binding.setLoading(true);
 
         /* API CALL */
         apiManager.requestAdTypes(this);
@@ -72,5 +87,12 @@ public class MainPresenterImpl implements MainPresenter, OnApiServiceListener {
         loadFromDatabase();
         mainView.hideProgress();
         mainView.displayError(message);
+    }
+
+    /* ON ESTABLISH CONNECTION */
+    @Subscribe
+    public void onEvent(ConnectionEvent connectionEvent) {
+        /* REQUEST DATA FROM API */
+        requestData();
     }
 }

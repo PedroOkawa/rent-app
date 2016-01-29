@@ -17,8 +17,9 @@ public class Advertisement {
 
     // KEEP FIELDS - put your custom fields here
 
-    @SerializedName("ad_id")
     private Long id;
+    @SerializedName("ad_id")
+    private Long adId;
     @SerializedName("daft_url")
     private String url;
     @SerializedName("property_type")
@@ -88,8 +89,9 @@ public class Advertisement {
         this.id = id;
     }
 
-    public Advertisement(Long id, String url, String propertyType, String houseType, String sellingType, String priceType, Integer agreed, Integer priority, String description, Integer price, Integer bedrooms, Integer bathrooms, Float squareMeters, Float acres, String fullAddress, String generalArea, Double latitude, Double longitude, String agencyName, String contactName, String phoneOne, String phoneTwo, String phoneInfo, String emailMain, String emailCC, Long startDate, Long listingDate, Long agreedDate, String imageSmall, String imageMedium, String imageLarge) {
+    public Advertisement(Long id, Long adId, String url, String propertyType, String houseType, String sellingType, String priceType, Integer agreed, Integer priority, String description, Integer price, Integer bedrooms, Integer bathrooms, Float squareMeters, Float acres, String fullAddress, String generalArea, Double latitude, Double longitude, String agencyName, String contactName, String phoneOne, String phoneTwo, String phoneInfo, String emailMain, String emailCC, Long startDate, Long listingDate, Long agreedDate, String imageSmall, String imageMedium, String imageLarge) {
         this.id = id;
+        this.adId = adId;
         this.url = url;
         this.propertyType = propertyType;
         this.houseType = houseType;
@@ -134,6 +136,14 @@ public class Advertisement {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getAdId() {
+        return adId;
+    }
+
+    public void setAdId(Long adId) {
+        this.adId = adId;
     }
 
     public String getUrl() {

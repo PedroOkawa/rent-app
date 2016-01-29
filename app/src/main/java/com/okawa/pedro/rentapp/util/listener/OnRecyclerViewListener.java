@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
  * Created by pokawa on 27/01/16.
  */
 public abstract class OnRecyclerViewListener extends RecyclerView.OnScrollListener {
-    public static final int LIST_THRESHOLD = 10;
+    public static final int LIST_THRESHOLD = 5;
 
     private int previousTotal = 0;
 

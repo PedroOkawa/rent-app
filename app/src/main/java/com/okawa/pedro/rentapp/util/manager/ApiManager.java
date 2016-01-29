@@ -1,10 +1,12 @@
 package com.okawa.pedro.rentapp.util.manager;
 
+import android.util.Log;
+
 import com.okawa.pedro.rentapp.database.AdTypeRepository;
 import com.okawa.pedro.rentapp.database.AdvertisementRepository;
 import com.okawa.pedro.rentapp.di.module.DatabaseModule;
-import com.okawa.pedro.rentapp.model.ResponseAdType;
-import com.okawa.pedro.rentapp.model.ResponseSearch;
+import com.okawa.pedro.rentapp.model.response.ResponseAdType;
+import com.okawa.pedro.rentapp.model.response.ResponseSearch;
 import com.okawa.pedro.rentapp.network.ApiInterface;
 import com.okawa.pedro.rentapp.util.listener.OnApiServiceListener;
 

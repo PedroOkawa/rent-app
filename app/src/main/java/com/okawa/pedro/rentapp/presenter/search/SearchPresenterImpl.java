@@ -94,8 +94,7 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
 
     private void loadFromDatabase() {
         /* LOAD DATA PAGED FROM DATABASE */
-        List<Advertisement> advertisements =
-                advertisementRepository.selectAllAdvertisementsPaged(advertisementAdapter.getItemCount());
+        List<Advertisement> advertisements = advertisementRepository.selectAllAdvertisementsPaged(advertisementAdapter.getItemCount());
         advertisementAdapter.addDataSet(advertisements);
         advertisementAdapter.notifyDataSetChanged();
     }

@@ -1,4 +1,4 @@
-package com.okawa.pedro.rentapp.model;
+package com.okawa.pedro.rentapp.model.response;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -25,6 +25,7 @@ public class GreenDaoManager {
     /* ADVERTISEMENT */
     private static final String TABLE_ADVERTISEMENT = "Advertisement";
     private static final String TABLE_ADVERTISEMENT_ID = "id";
+    private static final String TABLE_ADVERTISEMENT_AD_ID = "adId";
     private static final String TABLE_ADVERTISEMENT_URL = "url";
     private static final String TABLE_ADVERTISEMENT_PROPERTY_TYPE = "propertyType";
     private static final String TABLE_ADVERTISEMENT_HOUSE_TYPE = "houseType";
@@ -92,7 +93,8 @@ public class GreenDaoManager {
         /* ADVERTISEMENT */
         Entity advertisement = schema.addEntity(TABLE_ADVERTISEMENT);
 
-        advertisement.addLongProperty(TABLE_ADVERTISEMENT_ID).primaryKey();
+        advertisement.addLongProperty(TABLE_ADVERTISEMENT_ID).primaryKey().autoincrement();
+        advertisement.addLongProperty(TABLE_ADVERTISEMENT_AD_ID).unique();
         advertisement.addStringProperty(TABLE_ADVERTISEMENT_URL);
         advertisement.addStringProperty(TABLE_ADVERTISEMENT_PROPERTY_TYPE);
         advertisement.addStringProperty(TABLE_ADVERTISEMENT_HOUSE_TYPE);

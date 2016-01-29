@@ -28,7 +28,7 @@ public class AdvertisementRepository {
     }
 
     public Advertisement selectAdvertisementById(long id) {
-        return daoSession.getAdvertisementDao().queryBuilder().where(AdvertisementDao.Properties.Id.eq(id)).unique();
+        return daoSession.getAdvertisementDao().queryBuilder().where(AdvertisementDao.Properties.AdId.eq(id)).unique();
     }
 
     public List<Advertisement> selectAllAdvertisementsPaged(int offset) {

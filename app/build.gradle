@@ -65,8 +65,14 @@ dependencies {
     compile 'com.google.dagger:dagger:2.0.2'
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
+    /* EVENT BUS */
+    compile 'de.greenrobot:eventbus:3.0.0-beta1'
+
     /* GREENDAO */
     compile 'de.greenrobot:greendao:2.0.0'
+
+    /* MOCKITO */
+    compile 'org.mockito:mockito-core:2.0.41-beta'
 
     /* OBSERVABLE SCROLLVIEW */
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.2'

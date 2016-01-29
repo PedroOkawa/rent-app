@@ -58,7 +58,7 @@ public class AdvertisementAdapter extends BindingAdapter<Advertisement, AdapterA
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callManager.details((Activity) context, item.getId(), image, details);
+                callManager.details((Activity) context, item.getAdId(), image, details);
             }
         });
 
