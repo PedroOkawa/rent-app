@@ -1,10 +1,17 @@
 <resources>
 
     <!-- MAIN THEME -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
+    </style>
+
+    <!-- DISPLAY -->
+    <style name="Display">
+        <item name="android:textSize">@dimen/text_size_display_one</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 
     <!-- TITLE -->
@@ -14,11 +21,16 @@
         <item name="android:lines">1</item>
     </style>
 
-    <!-- DISPLAY -->
-    <style name="Display">
-        <item name="android:textSize">@dimen/text_size_display_one</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_gravity">center</item>
+    <!-- SUB-TITLE -->
+    <style name="SubTitle">
+        <item name="android:textSize">@dimen/text_size_subheading</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <!-- BODY -->
+    <style name="Body">
+        <item name="android:textSize">@dimen/text_size_body_one</item>
     </style>
 
     <!-- BUTTON -->

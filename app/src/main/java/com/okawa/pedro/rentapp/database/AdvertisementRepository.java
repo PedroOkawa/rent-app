@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import greendao.Advertisement;
+import greendao.AdvertisementDao;
 import greendao.DaoSession;
 import greendao.Pagination;
 
@@ -24,6 +25,10 @@ public class AdvertisementRepository {
 
     public void updateAdvertisementsInTx(Collection<Advertisement> advertisements) {
         daoSession.getAdvertisementDao().insertOrReplaceInTx(advertisements);
+    }
+
+    public Advertisement selectAdvertisementById(long id) {
+        return daoSession.getAdvertisementDao().queryBuilder().where(AdvertisementDao.Properties.Id.eq(id)).unique();
     }
 
     public List<Advertisement> selectAllAdvertisementsPaged(int offset) {

@@ -34,7 +34,9 @@ public class AdTypeAdapter extends BindingAdapter<AdType, AdapterAdTypeBinding> 
     }
 
     @Override
-    protected void doOnBindViewHolder(BindingViewHolder holder, AdapterAdTypeBinding binding, int position, final AdType item) {
+    protected void doOnBindViewHolder(BindingViewHolder holder,
+                                      AdapterAdTypeBinding binding,
+                                      int position, final AdType item) {
         binding.setAdType(item);
 
         Picasso.with(context)

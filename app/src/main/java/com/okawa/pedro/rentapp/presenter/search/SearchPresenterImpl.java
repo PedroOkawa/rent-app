@@ -1,6 +1,7 @@
 package com.okawa.pedro.rentapp.presenter.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 
@@ -12,6 +13,7 @@ import com.okawa.pedro.rentapp.util.listener.OnApiServiceListener;
 import com.okawa.pedro.rentapp.util.listener.OnRecyclerViewListener;
 import com.okawa.pedro.rentapp.util.manager.ApiManager;
 import com.okawa.pedro.rentapp.util.manager.AutoGridLayoutManager;
+import com.okawa.pedro.rentapp.util.manager.CallManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,7 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
 
     private SearchView searchView;
     private ApiManager apiManager;
+    private CallManager callManager;
     private AdvertisementRepository advertisementRepository;
 
     private AdvertisementAdapter advertisementAdapter;
@@ -33,9 +36,11 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
 
     public SearchPresenterImpl(SearchView searchView,
                                ApiManager apiManager,
+                               CallManager callManager,
                                AdvertisementRepository advertisementRepository) {
         this.searchView = searchView;
         this.apiManager = apiManager;
+        this.callManager = callManager;
         this.advertisementRepository = advertisementRepository;
     }
 
@@ -45,7 +50,7 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
         binding.setLoading(true);
 
         /* INITIALIZE VIEWS */
-        advertisementAdapter = new AdvertisementAdapter(new ArrayList<Advertisement>(), context);
+        advertisementAdapter = new AdvertisementAdapter(new ArrayList<Advertisement>(), context, callManager);
         autoGridLayoutManager = new AutoGridLayoutManager(context);
         onSearchListListener = new OnSearchListListener(autoGridLayoutManager);
 
@@ -62,6 +67,12 @@ public class SearchPresenterImpl implements SearchPresenter, OnApiServiceListene
                 loadNextPage();
             }
         });
+    }
+
+    @Override
+    public void restoreData(Intent intent) {
+        /* INITIALIZE TOOLBAR */
+        searchView.initializeToolbar(intent.getStringExtra(CallManager.BUNDLE_SEARCH));
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.okawa.pedro.rentapp.ui.filter;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -42,6 +41,10 @@ public class FilterActivity extends BaseActivity implements FilterView {
 
     @Override
     protected void doOnCreated(Bundle savedInstanceState) {
+        /* DEFINE START TRANSITION ANIMATION */
+        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+
+        /* INITIALIZE ACTIVITY */
         binding = (ActivityFilterBinding) getBinding();
         filterPresenter.restoreData(getIntent());
         filterPresenter.initialize(this, binding);
@@ -49,6 +52,7 @@ public class FilterActivity extends BaseActivity implements FilterView {
 
     @Override
     public void initializeToolbar(String title) {
+        setSupportActionBar(binding.toolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_action_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -67,5 +71,12 @@ public class FilterActivity extends BaseActivity implements FilterView {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        /* DEFINE END TRANSITION ANIMATION */
+        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
     }
 }

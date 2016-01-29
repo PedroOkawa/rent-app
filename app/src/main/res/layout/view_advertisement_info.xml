@@ -9,16 +9,31 @@
 
     <LinearLayout
         android:id="@+id/rlViewAdvertisementInfo"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_advertisement_info_background">
-        
+
         <TextView
             style="@style/Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:padding="@dimen/view_advertisement_info_address_padding"
+            android:paddingTop="@dimen/view_advertisement_info_text_vertical_padding"
+            android:paddingBottom="@dimen/view_advertisement_info_text_vertical_padding"
+            android:paddingLeft="@dimen/view_advertisement_info_text_horizontal_padding"
+            android:paddingRight="@dimen/view_advertisement_info_text_horizontal_padding"
+            android:text="@{String.valueOf(advertisement.price)}"/>
+        
+        <TextView
+            style="@style/SubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:paddingTop="@dimen/view_advertisement_info_text_vertical_padding"
+            android:paddingBottom="@dimen/view_advertisement_info_text_vertical_padding"
+            android:paddingLeft="@dimen/view_advertisement_info_text_horizontal_padding"
+            android:paddingRight="@dimen/view_advertisement_info_text_horizontal_padding"
             android:text="@{advertisement.fullAddress}"/>
 
     </LinearLayout>

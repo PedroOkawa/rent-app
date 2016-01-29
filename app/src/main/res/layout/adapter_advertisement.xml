@@ -18,7 +18,7 @@
         android:foreground="?android:attr/selectableItemBackground">
 
         <ImageView
-            android:id="@+id/ivAdapterAdvertisement"
+            android:id="@+id/ivAdvertisement"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"/>

@@ -6,6 +6,6 @@
     <!-- ACTIVITY FILTER -->
     <string name="activity_filter_placeholder">INCLUIR\nFILTROS\nAQUI</string>
     <string name="activity_filter_button_search_text">Pesquisar (Ir)</string>
-    <string name="activity_filter_message_error">Não nenhuma pesquisa implementada para este tipo de anúncio\nEM BREVE</string>
+    <string name="activity_filter_message_error">Chamada não implementada\nEM BREVE</string>
 
 </resources>

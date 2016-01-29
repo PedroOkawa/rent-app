@@ -41,6 +41,9 @@ public class MainPresenterImpl implements MainPresenter, OnApiServiceListener {
         /* SHOW PROGRESS BAR */
         binding.setLoading(true);
 
+        /* INITIALIZE TOOLBAR */
+        mainView.initializeToolbar();
+
         /* INITIALIZE VIEWS */
         adTypeAdapter = new AdTypeAdapter(new ArrayList<AdType>(), context, callManager);
 

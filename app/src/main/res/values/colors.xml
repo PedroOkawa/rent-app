@@ -11,6 +11,9 @@
     <!-- VIEW ADVERTISEMENT INFO -->
     <color name="color_advertisement_info_background">@color/color_black_alpha_7F</color>
 
+    <!-- DETAILS ACTIVITY -->
+    <color name="color_details_activity_overlay">@color/color_black_alpha_7F</color>
+
     <!-- COMMON -->
     <color name="color_black_alpha_7F">#7F000000</color>
 </resources>

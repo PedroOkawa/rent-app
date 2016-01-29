@@ -2,6 +2,7 @@ package com.okawa.pedro.rentapp.ui.search;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.okawa.pedro.rentapp.R;
@@ -41,8 +42,22 @@ public class SearchActivity extends BaseActivity implements SearchView {
 
     @Override
     protected void doOnCreated(Bundle savedInstanceState) {
+        /* DEFINE START TRANSITION ANIMATION */
+        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+
+        /* INITIALIZE ACTIVITY */
         binding = (ActivitySearchBinding) getBinding();
+        searchPresenter.restoreData(getIntent());
         searchPresenter.initialize(this, binding);
+    }
+
+    @Override
+    public void initializeToolbar(String title) {
+        setSupportActionBar(binding.toolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_action_back);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle(title);
     }
 
     @Override
@@ -65,5 +80,21 @@ public class SearchActivity extends BaseActivity implements SearchView {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         searchPresenter.onOrientationChanged(newConfig.orientation);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        /* DEFINE END TRANSITION ANIMATION */
+        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
     }
 }

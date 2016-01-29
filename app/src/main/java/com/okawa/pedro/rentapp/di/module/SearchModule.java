@@ -6,6 +6,7 @@ import com.okawa.pedro.rentapp.presenter.search.SearchPresenter;
 import com.okawa.pedro.rentapp.presenter.search.SearchPresenterImpl;
 import com.okawa.pedro.rentapp.ui.search.SearchView;
 import com.okawa.pedro.rentapp.util.manager.ApiManager;
+import com.okawa.pedro.rentapp.util.manager.CallManager;
 
 import dagger.Module;
 import dagger.Provides;
@@ -32,8 +33,9 @@ public class SearchModule {
     @Provides
     public SearchPresenter providesSearchPresenter(SearchView searchView,
                                                    ApiManager apiManager,
+                                                   CallManager callManager,
                                                    AdvertisementRepository advertisementRepository) {
-        return new SearchPresenterImpl(searchView, apiManager, advertisementRepository);
+        return new SearchPresenterImpl(searchView, apiManager, callManager, advertisementRepository);
     }
 
 }

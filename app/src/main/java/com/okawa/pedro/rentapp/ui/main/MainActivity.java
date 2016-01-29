@@ -1,7 +1,6 @@
 package com.okawa.pedro.rentapp.ui.main;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.okawa.pedro.rentapp.R;
@@ -43,6 +42,13 @@ public class MainActivity extends BaseActivity implements MainView {
     protected void doOnCreated(Bundle savedInstanceState) {
         binding = (ActivityMainBinding) getBinding();
         mainPresenter.initialize(this, binding);
+    }
+
+    @Override
+    public void initializeToolbar() {
+        setSupportActionBar(binding.toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle(R.string.app_name);
     }
 
     @Override

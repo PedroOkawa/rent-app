@@ -14,6 +14,11 @@
     <dimen name="adapter_advertisement_card_elevation">8dp</dimen>
 
     <!-- VIEW ADVERTISEMENT INFO -->
-    <dimen name="view_advertisement_info_address_padding">8dp</dimen>
+    <dimen name="view_advertisement_info_text_vertical_padding">4dp</dimen>
+    <dimen name="view_advertisement_info_text_horizontal_padding">16dp</dimen>
+
+    <!-- DETAILS ACTIVITY -->
+    <dimen name="activity_details_image_height">300dp</dimen>
+    <dimen name="activity_details_body_padding">16dp</dimen>
 
 </resources>
