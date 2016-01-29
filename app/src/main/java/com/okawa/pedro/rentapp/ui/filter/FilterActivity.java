@@ -6,8 +6,8 @@ import android.widget.Toast;
 
 import com.okawa.pedro.rentapp.R;
 import com.okawa.pedro.rentapp.databinding.ActivityFilterBinding;
+import com.okawa.pedro.rentapp.di.component.AppComponent;
 import com.okawa.pedro.rentapp.di.component.DaggerFilterComponent;
-import com.okawa.pedro.rentapp.di.component.RentAppComponent;
 import com.okawa.pedro.rentapp.di.module.FilterModule;
 import com.okawa.pedro.rentapp.presenter.filter.FilterPresenter;
 import com.okawa.pedro.rentapp.ui.common.BaseActivity;
@@ -30,10 +30,10 @@ public class FilterActivity extends BaseActivity implements FilterView {
     }
 
     @Override
-    protected void setupComponent(RentAppComponent component) {
+    protected void setupComponent(AppComponent component) {
         DaggerFilterComponent
                 .builder()
-                .rentAppComponent(component)
+                .appComponent(component)
                 .filterModule(new FilterModule(this))
                 .build()
                 .inject(this);

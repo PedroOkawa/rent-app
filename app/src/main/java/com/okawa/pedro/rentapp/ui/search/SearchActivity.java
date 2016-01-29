@@ -7,8 +7,8 @@ import android.widget.Toast;
 
 import com.okawa.pedro.rentapp.R;
 import com.okawa.pedro.rentapp.databinding.ActivitySearchBinding;
+import com.okawa.pedro.rentapp.di.component.AppComponent;
 import com.okawa.pedro.rentapp.di.component.DaggerSearchComponent;
-import com.okawa.pedro.rentapp.di.component.RentAppComponent;
 import com.okawa.pedro.rentapp.di.module.SearchModule;
 import com.okawa.pedro.rentapp.presenter.search.SearchPresenter;
 import com.okawa.pedro.rentapp.ui.common.BaseActivity;
@@ -31,10 +31,10 @@ public class SearchActivity extends BaseActivity implements SearchView {
     }
 
     @Override
-    protected void setupComponent(RentAppComponent component) {
+    protected void setupComponent(AppComponent component) {
         DaggerSearchComponent
                 .builder()
-                .rentAppComponent(component)
+                .appComponent(component)
                 .searchModule(new SearchModule(this))
                 .build()
                 .inject(this);

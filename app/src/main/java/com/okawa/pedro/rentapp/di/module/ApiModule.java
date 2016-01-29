@@ -8,6 +8,8 @@ import com.okawa.pedro.rentapp.network.ApiInterface;
 import com.okawa.pedro.rentapp.util.manager.ApiManager;
 import com.okawa.pedro.rentapp.util.manager.ApiQueryManager;
 
+import org.mockito.Mockito;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;

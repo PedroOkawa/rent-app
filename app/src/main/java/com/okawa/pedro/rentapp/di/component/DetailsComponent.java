@@ -12,7 +12,7 @@ import dagger.Component;
  * Created by pokawa on 28/01/16.
  */
 @Activity
-@Component(dependencies = RentAppComponent.class, modules = DetailsModule.class)
+@Component(dependencies = AppComponent.class, modules = DetailsModule.class)
 public interface DetailsComponent {
 
     void inject(DetailsActivity detailsActivity);

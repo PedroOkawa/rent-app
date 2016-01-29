@@ -1,7 +1,5 @@
 package com.okawa.pedro.rentapp.util.manager;
 
-import android.util.Log;
-
 import com.okawa.pedro.rentapp.database.AdTypeRepository;
 import com.okawa.pedro.rentapp.database.AdvertisementRepository;
 import com.okawa.pedro.rentapp.di.module.DatabaseModule;

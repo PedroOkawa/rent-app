@@ -3,15 +3,14 @@ package com.okawa.pedro.rentapp.ui.details;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.okawa.pedro.rentapp.R;
 import com.okawa.pedro.rentapp.databinding.ActivityDetailsBinding;
+import com.okawa.pedro.rentapp.di.component.AppComponent;
 import com.okawa.pedro.rentapp.di.component.DaggerDetailsComponent;
-import com.okawa.pedro.rentapp.di.component.RentAppComponent;
 import com.okawa.pedro.rentapp.di.module.DetailsModule;
 import com.okawa.pedro.rentapp.presenter.details.DetailsPresenter;
 import com.okawa.pedro.rentapp.ui.common.BaseActivity;
@@ -34,10 +33,10 @@ public class DetailsActivity extends BaseActivity implements DetailsView {
     }
 
     @Override
-    protected void setupComponent(RentAppComponent component) {
+    protected void setupComponent(AppComponent component) {
         DaggerDetailsComponent
                 .builder()
-                .rentAppComponent(component)
+                .appComponent(component)
                 .detailsModule(new DetailsModule(this))
                 .build()
                 .inject(this);

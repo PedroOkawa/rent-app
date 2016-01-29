@@ -3,11 +3,11 @@ package com.okawa.pedro.rentapp.ui.common;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 
 import com.okawa.pedro.rentapp.RentApp;
+import com.okawa.pedro.rentapp.di.component.AppComponent;
 import com.okawa.pedro.rentapp.di.component.RentAppComponent;
 
 /**
@@ -29,7 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract @LayoutRes int layoutToInflate();
 
-    protected abstract void setupComponent(RentAppComponent component);
+    protected abstract void setupComponent(AppComponent component);
 
     protected abstract void doOnCreated(Bundle savedInstanceState);
 

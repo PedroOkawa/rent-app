@@ -18,7 +18,6 @@ public class AdTypeRepository {
         this.daoSession = daoSession;
     }
 
-
     public void updateAdTypeInTx(Collection<AdType> advertisements) {
         daoSession.getAdTypeDao().insertOrReplaceInTx(advertisements);
     }
@@ -29,6 +28,10 @@ public class AdTypeRepository {
 
     public List<AdType> selectAllAdType() {
         return daoSession.getAdTypeDao().queryBuilder().list();
+    }
+
+    public long count() {
+        return daoSession.getAdTypeDao().count();
     }
 
 }

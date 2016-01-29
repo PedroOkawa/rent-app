@@ -5,7 +5,6 @@ import com.okawa.pedro.rentapp.di.scope.Activity;
 import com.okawa.pedro.rentapp.presenter.details.DetailsPresenter;
 import com.okawa.pedro.rentapp.presenter.details.DetailsPresenterImpl;
 import com.okawa.pedro.rentapp.ui.details.DetailsView;
-import com.okawa.pedro.rentapp.util.manager.CallManager;
 
 import dagger.Module;
 import dagger.Provides;
