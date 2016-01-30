@@ -187,19 +187,19 @@ public class FilterActivityTest implements OnApiServiceListener {
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
 
-    @Test(expected = AssertionFailedError.class)
-    public void openSearchFromParking() {
-        AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_PARKING);
-
-        activityRule.launchActivity(callFilterActivity(adType));
-
-        matchToolbarTitle(adType.getDescriptionShort()).check(matches(isDisplayed()));
-
-        sleep(INTERACTION_DELAY);
-
-        onView(withId(R.id.tvActivityFilterSearch)).perform(ViewActions.click());
-        matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
-    }
+//    @Test(expected = AssertionFailedError.class)
+//    public void openSearchFromParking() {
+//        AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_PARKING);
+//
+//        activityRule.launchActivity(callFilterActivity(adType));
+//
+//        matchToolbarTitle(adType.getDescriptionShort()).check(matches(isDisplayed()));
+//
+//        sleep(INTERACTION_DELAY);
+//
+//        onView(withId(R.id.tvActivityFilterSearch)).perform(ViewActions.click());
+//        matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
+//    }
 
     @Test(expected = AssertionFailedError.class)
     public void openSearchFromNewDevelopment() {
