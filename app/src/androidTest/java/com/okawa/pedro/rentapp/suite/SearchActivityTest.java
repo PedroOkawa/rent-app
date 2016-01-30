@@ -2,8 +2,6 @@ package com.okawa.pedro.rentapp.suite;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.NoMatchingViewException;
-import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -15,7 +13,6 @@ import com.okawa.pedro.rentapp.database.AdvertisementRepository;
 import com.okawa.pedro.rentapp.di.component.TestRentAppComponent;
 import com.okawa.pedro.rentapp.ui.search.SearchActivity;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,6 +23,7 @@ import javax.inject.Inject;
 import greendao.AdType;
 
 import static android.os.SystemClock.sleep;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.okawa.pedro.rentapp.matcher.ToolbarMatcher.matchToolbarTitle;
@@ -40,6 +38,7 @@ import static com.okawa.pedro.rentapp.util.TestManager.checkRecyclerItem;
 @LargeTest
 public class SearchActivityTest {
 
+    private static final int INITIAL_DELAY = 1000;
     private static final int INTERACTION_DELAY = 500;
     private static final int TOTAL_SEARCH_TEST = 5;
 
@@ -58,6 +57,9 @@ public class SearchActivityTest {
         RentApp app = (RentApp) instrumentation.getTargetContext().getApplicationContext();
         TestRentAppComponent component = (TestRentAppComponent) app.getComponent();
         component.inject(this);
+
+        closeSoftKeyboard();
+        sleep(INITIAL_DELAY);
     }
 
     @Test

@@ -15,7 +15,6 @@ import com.okawa.pedro.rentapp.ui.filter.FilterActivity;
 
 import junit.framework.AssertionFailedError;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,6 +26,7 @@ import greendao.AdType;
 
 import static android.os.SystemClock.sleep;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -41,6 +41,7 @@ import static com.okawa.pedro.rentapp.util.TestManager.callFilterActivity;
 @LargeTest
 public class FilterActivityTest {
 
+    private static final int INITIAL_DELAY = 1000;
     private static final int INTERACTION_DELAY = 500;
 
     @Inject
@@ -55,6 +56,9 @@ public class FilterActivityTest {
         RentApp app = (RentApp) instrumentation.getTargetContext().getApplicationContext();
         TestRentAppComponent component = (TestRentAppComponent) app.getComponent();
         component.inject(this);
+
+        closeSoftKeyboard();
+        sleep(INITIAL_DELAY);
     }
 
     @Test

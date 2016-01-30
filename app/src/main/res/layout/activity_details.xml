@@ -70,7 +70,7 @@
             </RelativeLayout>
 
         </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
-        
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_height="wrap_content"
