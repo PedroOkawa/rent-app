@@ -60,14 +60,11 @@ public class DetailsActivity extends BaseActivity implements DetailsView {
         getSupportActionBar().setTitle(title);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void initializeStatusBar() {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        getWindow().setStatusBarColor(ContextCompat.getColor(this, android.R.color.transparent));
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void changeStatusBarColor(int color) {
         getWindow().setStatusBarColor(color);
