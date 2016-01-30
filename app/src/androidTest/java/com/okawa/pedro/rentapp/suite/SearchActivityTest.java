@@ -26,7 +26,6 @@ import javax.inject.Inject;
 import greendao.AdType;
 
 import static android.os.SystemClock.sleep;
-import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.okawa.pedro.rentapp.matcher.ToolbarMatcher.matchToolbarTitle;
@@ -55,7 +54,6 @@ public class SearchActivityTest {
 
     @Before
     public void setup() {
-        closeSoftKeyboard();
         Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
         RentApp app = (RentApp) instrumentation.getTargetContext().getApplicationContext();
         TestRentAppComponent component = (TestRentAppComponent) app.getComponent();
@@ -67,7 +65,6 @@ public class SearchActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_SHORT_TERM);
 
         activityRule.launchActivity(callSearchActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
@@ -77,7 +74,6 @@ public class SearchActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_SHARING);
 
         activityRule.launchActivity(callSearchActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
@@ -87,7 +83,6 @@ public class SearchActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_SALE);
 
         activityRule.launchActivity(callSearchActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
@@ -97,7 +92,6 @@ public class SearchActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_RENTAL);
 
         activityRule.launchActivity(callSearchActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
@@ -107,7 +101,6 @@ public class SearchActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_PARKING);
 
         activityRule.launchActivity(callSearchActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
@@ -117,7 +110,6 @@ public class SearchActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_NEW_DEVELOPMENT);
 
         activityRule.launchActivity(callSearchActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
@@ -127,7 +119,6 @@ public class SearchActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_COMMERCIAL);
 
         activityRule.launchActivity(callSearchActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
@@ -208,9 +199,4 @@ public class SearchActivityTest {
 //            sleep(INTERACTION_DELAY);
 //        }
 //    }
-
-    @After
-    public void dispose() {
-        activityRule.getActivity().finish();
-    }
 }

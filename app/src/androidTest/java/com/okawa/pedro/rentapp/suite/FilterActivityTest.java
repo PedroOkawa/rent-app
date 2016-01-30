@@ -26,7 +26,6 @@ import javax.inject.Inject;
 import greendao.AdType;
 
 import static android.os.SystemClock.sleep;
-import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -52,7 +51,6 @@ public class FilterActivityTest {
 
     @Before
     public void setup() {
-        closeSoftKeyboard();
         Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
         RentApp app = (RentApp) instrumentation.getTargetContext().getApplicationContext();
         TestRentAppComponent component = (TestRentAppComponent) app.getComponent();
@@ -64,7 +62,6 @@ public class FilterActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_SHORT_TERM);
 
         activityRule.launchActivity(callFilterActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionShort()).check(matches(isDisplayed()));
     }
@@ -74,7 +71,6 @@ public class FilterActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_SHARING);
 
         activityRule.launchActivity(callFilterActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionShort()).check(matches(isDisplayed()));
     }
@@ -84,7 +80,6 @@ public class FilterActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_SALE);
 
         activityRule.launchActivity(callFilterActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionShort()).check(matches(isDisplayed()));
     }
@@ -94,7 +89,6 @@ public class FilterActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_RENTAL);
 
         activityRule.launchActivity(callFilterActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionShort()).check(matches(isDisplayed()));
     }
@@ -104,7 +98,6 @@ public class FilterActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_PARKING);
 
         activityRule.launchActivity(callFilterActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionShort()).check(matches(isDisplayed()));
     }
@@ -114,7 +107,6 @@ public class FilterActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_NEW_DEVELOPMENT);
 
         activityRule.launchActivity(callFilterActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionShort()).check(matches(isDisplayed()));
     }
@@ -124,7 +116,6 @@ public class FilterActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_COMMERCIAL);
 
         activityRule.launchActivity(callFilterActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionShort()).check(matches(isDisplayed()));
     }
@@ -134,7 +125,6 @@ public class FilterActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_SHORT_TERM);
 
         activityRule.launchActivity(callFilterActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionShort()).check(matches(isDisplayed()));
 
@@ -149,7 +139,6 @@ public class FilterActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_SHARING);
 
         activityRule.launchActivity(callFilterActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionShort()).check(matches(isDisplayed()));
 
@@ -164,7 +153,6 @@ public class FilterActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_SALE);
 
         activityRule.launchActivity(callFilterActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionShort()).check(matches(isDisplayed()));
 
@@ -179,7 +167,6 @@ public class FilterActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_RENTAL);
 
         activityRule.launchActivity(callFilterActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionShort()).check(matches(isDisplayed()));
 
@@ -194,7 +181,6 @@ public class FilterActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_PARKING);
 
         activityRule.launchActivity(callFilterActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionShort()).check(matches(isDisplayed()));
 
@@ -209,12 +195,11 @@ public class FilterActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_NEW_DEVELOPMENT);
 
         activityRule.launchActivity(callFilterActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionShort()).check(matches(isDisplayed()));
 
         sleep(INTERACTION_DELAY);
-        
+
         onView(withId(R.id.tvActivityFilterSearch)).perform(ViewActions.click());
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
     }
@@ -224,18 +209,12 @@ public class FilterActivityTest {
         AdType adType = adTypeRepository.selectAdTypeByName(AdType.TYPE_COMMERCIAL);
 
         activityRule.launchActivity(callFilterActivity(adType));
-        activityRule.getActivity();
 
         matchToolbarTitle(adType.getDescriptionShort()).check(matches(isDisplayed()));
 
         sleep(INTERACTION_DELAY);
-        
+
         onView(withId(R.id.tvActivityFilterSearch)).perform(ViewActions.click());
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
-    }
-
-    @After
-    public void dispose() {
-        activityRule.getActivity().finish();
     }
 }
