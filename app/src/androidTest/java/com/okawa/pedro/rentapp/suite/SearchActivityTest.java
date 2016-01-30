@@ -12,6 +12,8 @@ import com.okawa.pedro.rentapp.database.AdTypeRepository;
 import com.okawa.pedro.rentapp.database.AdvertisementRepository;
 import com.okawa.pedro.rentapp.di.component.TestRentAppComponent;
 import com.okawa.pedro.rentapp.ui.search.SearchActivity;
+import com.okawa.pedro.rentapp.util.listener.OnApiServiceListener;
+import com.okawa.pedro.rentapp.util.manager.ApiManager;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -36,11 +38,14 @@ import static com.okawa.pedro.rentapp.util.TestManager.checkRecyclerItem;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class SearchActivityTest {
+public class SearchActivityTest implements OnApiServiceListener {
 
     private static final int INITIAL_DELAY = 1000;
     private static final int INTERACTION_DELAY = 500;
     private static final int TOTAL_SEARCH_TEST = 5;
+
+    @Inject
+    ApiManager apiManager;
 
     @Inject
     AdTypeRepository adTypeRepository;
@@ -57,6 +62,9 @@ public class SearchActivityTest {
         RentApp app = (RentApp) instrumentation.getTargetContext().getApplicationContext();
         TestRentAppComponent component = (TestRentAppComponent) app.getComponent();
         component.inject(this);
+
+        apiManager.requestAdTypes(this);
+        apiManager.requestAdvertisements(this);
 
         closeSoftKeyboard();
         sleep(INITIAL_DELAY);
@@ -151,6 +159,8 @@ public class SearchActivityTest {
     public void validateSaleAdvertisements() {
         openSaleSearch();
 
+        sleep(INTERACTION_DELAY);
+
         for(int i = 0; i < TOTAL_SEARCH_TEST; i++) {
             checkRecyclerItem(i, R.id.rvActivitySearch);
 
@@ -201,4 +211,15 @@ public class SearchActivityTest {
 //            sleep(INTERACTION_DELAY);
 //        }
 //    }
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
+    public void onError(String message) {
+        activityRule.getActivity().finish();
+        System.out.print(message);
+    }
 }

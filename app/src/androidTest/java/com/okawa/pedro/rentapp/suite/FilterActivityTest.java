@@ -12,6 +12,8 @@ import com.okawa.pedro.rentapp.RentApp;
 import com.okawa.pedro.rentapp.database.AdTypeRepository;
 import com.okawa.pedro.rentapp.di.component.TestRentAppComponent;
 import com.okawa.pedro.rentapp.ui.filter.FilterActivity;
+import com.okawa.pedro.rentapp.util.listener.OnApiServiceListener;
+import com.okawa.pedro.rentapp.util.manager.ApiManager;
 
 import junit.framework.AssertionFailedError;
 
@@ -39,10 +41,13 @@ import static com.okawa.pedro.rentapp.util.TestManager.callFilterActivity;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class FilterActivityTest {
+public class FilterActivityTest implements OnApiServiceListener {
 
     private static final int INITIAL_DELAY = 1000;
     private static final int INTERACTION_DELAY = 500;
+
+    @Inject
+    ApiManager apiManager;
 
     @Inject
     AdTypeRepository adTypeRepository;
@@ -56,6 +61,8 @@ public class FilterActivityTest {
         RentApp app = (RentApp) instrumentation.getTargetContext().getApplicationContext();
         TestRentAppComponent component = (TestRentAppComponent) app.getComponent();
         component.inject(this);
+
+        apiManager.requestAdTypes(this);
 
         closeSoftKeyboard();
         sleep(INITIAL_DELAY);
@@ -220,5 +227,16 @@ public class FilterActivityTest {
 
         onView(withId(R.id.tvActivityFilterSearch)).perform(ViewActions.click());
         matchToolbarTitle(adType.getDescriptionPlural()).check(matches(isDisplayed()));
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
+    public void onError(String message) {
+        activityRule.getActivity().finish();
+        System.out.print(message);
     }
 }

@@ -2,7 +2,6 @@ package com.okawa.pedro.rentapp.suite;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -12,6 +11,8 @@ import com.okawa.pedro.rentapp.RentApp;
 import com.okawa.pedro.rentapp.database.AdTypeRepository;
 import com.okawa.pedro.rentapp.di.component.TestRentAppComponent;
 import com.okawa.pedro.rentapp.ui.main.MainActivity;
+import com.okawa.pedro.rentapp.util.listener.OnApiServiceListener;
+import com.okawa.pedro.rentapp.util.manager.ApiManager;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -30,10 +31,13 @@ import static com.okawa.pedro.rentapp.util.TestManager.checkRecyclerItem;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class MainActivityTest {
+public class MainActivityTest implements OnApiServiceListener {
 
     private static final int INITIAL_DELAY = 1000;
     private static final int INTERACTION_DELAY = 500;
+
+    @Inject
+    ApiManager apiManager;
 
     @Inject
     AdTypeRepository adTypeRepository;
@@ -48,6 +52,8 @@ public class MainActivityTest {
         TestRentAppComponent component = (TestRentAppComponent) app.getComponent();
         component.inject(this);
 
+        apiManager.requestAdTypes(this);
+
         closeSoftKeyboard();
         sleep(INITIAL_DELAY);
     }
@@ -58,5 +64,16 @@ public class MainActivityTest {
             checkRecyclerItem(i, R.id.rvActivityMain);
             sleep(INTERACTION_DELAY);
         }
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
+    public void onError(String message) {
+        activityRule.getActivity().finish();
+        System.out.print(message);
     }
 }
