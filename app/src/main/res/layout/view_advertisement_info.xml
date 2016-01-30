@@ -23,7 +23,7 @@
             android:paddingBottom="@dimen/view_advertisement_info_text_vertical_padding"
             android:paddingLeft="@dimen/view_advertisement_info_text_horizontal_padding"
             android:paddingRight="@dimen/view_advertisement_info_text_horizontal_padding"
-            android:text="@{String.valueOf(advertisement.price)}"/>
+            android:text="@{advertisement.formattedPrice}"/>
         
         <TextView
             style="@style/SubTitle"

@@ -1,6 +1,9 @@
 package greendao;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
+
 import greendao.DaoSession;
 import de.greenrobot.dao.DaoException;
 
@@ -433,6 +436,15 @@ public class Advertisement {
     }
 
     // KEEP METHODS - put your custom methods here
+
+    public String formattedPrice() {
+        StringBuffer stringBuffer = new StringBuffer();
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.UK);
+        stringBuffer.append("€ ");
+        stringBuffer.append(numberFormat.format(price));
+        return stringBuffer.toString();
+    }
+
     // KEEP METHODS END
 
 }
