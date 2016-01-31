@@ -43,7 +43,7 @@ import static com.okawa.pedro.rentapp.util.TestManager.callFilterActivity;
 @LargeTest
 public class FilterActivityTest implements OnApiServiceListener {
 
-    private static final int INITIAL_DELAY = 1000;
+    private static final int INITIAL_DELAY = 5000;
     private static final int INTERACTION_DELAY = 500;
 
     @Inject
