@@ -16,12 +16,15 @@ import greendao.Advertisement;
 import greendao.Pagination;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func2;
 import rx.schedulers.Schedulers;
 
 /**
  * Created by pokawa on 27/01/16.
  */
 public class ApiManager {
+
+    private static final int TOTAL_RETRIES = 3;
 
     private ApiInterface apiInterface;
     private ApiQueryManager apiQueryManager;
@@ -49,6 +52,13 @@ public class ApiManager {
                 .search(apiQueryManager.generateQuery(parameters))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
+                /* DEFINE RETRY (3 TIMES) */
+                .retry(new Func2<Integer, Throwable, Boolean>() {
+                    @Override
+                    public Boolean call(Integer attempts, Throwable throwable) {
+                        return attempts <= TOTAL_RETRIES;
+                    }
+                })
                 .subscribe(new Observer<ResponseSearch>() {
                     @Override
                     public void onCompleted() {
@@ -82,6 +92,13 @@ public class ApiManager {
                 .adTypes(apiQueryManager.generateQuery())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
+                /* DEFINE RETRY (3 TIMES) */
+                .retry(new Func2<Integer, Throwable, Boolean>() {
+                    @Override
+                    public Boolean call(Integer attempts, Throwable throwable) {
+                        return attempts <= TOTAL_RETRIES;
+                    }
+                })
                 .subscribe(new Observer<ResponseAdType>() {
                     @Override
                     public void onCompleted() {
