@@ -1,6 +1,6 @@
 # Rent App [![Build Status](https://travis-ci.org/PedroOkawa/rent-app.svg?branch=master)](https://travis-ci.org/PedroOkawa/rent-app)
 
-Check some places houses available to buy based on Daft API
+Check some places, houses and apartments available to buy or rent based on Daft API
 
 # Features
 
@@ -15,6 +15,7 @@ Check some places houses available to buy based on Daft API
 * Espresso (Instrumentation Test)
 * Travis (Continuous Integration Test)
 * Crashlytics / Fabric (Crash report)
+* Reconnection using BroadcastReceiver
 
 # Demo
 
