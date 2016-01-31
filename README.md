@@ -21,7 +21,6 @@ Check some places houses available to buy based on Daft API
 ![Preview 1](https://github.com/PedroOkawa/gallery-res/blob/master/preview_1.gif)
 ![Preview 2](https://github.com/PedroOkawa/gallery-res/blob/master/preview_2.gif)
 ![Preview 3](https://github.com/PedroOkawa/gallery-res/blob/master/preview_3.gif)
-![Preview 4](https://github.com/PedroOkawa/gallery-res/blob/master/preview_4.gif)
 
 # Download
 Click **[here]** to download apk.
