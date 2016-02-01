@@ -438,11 +438,8 @@ public class Advertisement {
     // KEEP METHODS - put your custom methods here
 
     public String formattedPrice() {
-        StringBuffer stringBuffer = new StringBuffer();
-        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.UK);
-        stringBuffer.append("€ ");
-        stringBuffer.append(numberFormat.format(price));
-        return stringBuffer.toString();
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.GERMANY);
+        return numberFormat.format(price);
     }
 
     // KEEP METHODS END
