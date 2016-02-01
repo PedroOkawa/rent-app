@@ -81,6 +81,7 @@ public class MainPresenterImpl implements MainPresenter, OnApiServiceListener {
     private void loadFromDatabase() {
         /* LOAD DATA PAGED FROM DATABASE */
         List<AdType> adTypes = adTypeRepository.selectAllAdType();
+        adTypeAdapter.reset();
         adTypeAdapter.addDataSet(adTypes);
         adTypeAdapter.notifyDataSetChanged();
     }
